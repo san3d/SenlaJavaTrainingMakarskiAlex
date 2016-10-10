@@ -1,33 +1,37 @@
 package task3_3;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Firm {
 	private int totalSalary;
-	private Set<Employ> set = new HashSet<Employ>();
+	private Employ[] employ = new Employ[10];
 	private String firmName;
 
 	public Firm(String firmName) {
-		this.firmName=firmName;
+		this.firmName = firmName;
 		System.out.println("Firm " + firmName + " created!");
 	}
 
 	public void addEmploy(Employ person) {
-		set.add(person);
-		System.out.println("Employer "+person.getName()+" work on "+firmName);
+		for (int i = 0; i < employ.length; i++) {
+			if (employ[i] == null) {
+				employ[i] = person;
+				System.out.println("Employer " + person.getName() + " work on " + firmName);
+				break;
+			}
+		}
 	}
 
-	public Set<Employ> getSet() {
-		return set;
+	public Employ[] getSet() {
+		return employ;
 	}
 
 	public void calculateSummarySalary() {
 		int n = 0;
 		System.out.println("Calculating salary :");
-		for (Employ s : set) {
-			n = n + s.getSalary();
-			System.out.println(s.getSalary());
+		for (int i = 0; i < employ.length; i++) {
+			if (employ[i] != null) {
+				n = n + employ[i].getSalary();
+				System.out.println(employ[i].getSalary());
+			}
 		}
 		this.totalSalary = n;
 	}
