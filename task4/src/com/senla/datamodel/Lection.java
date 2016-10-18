@@ -1,4 +1,4 @@
-package datamodel.com.makarski.task4;
+package com.senla.datamodel;
 
 import java.util.Date;
 

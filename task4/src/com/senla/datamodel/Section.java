@@ -1,4 +1,4 @@
-package datamodel.com.makarski.task4;
+package com.senla.datamodel;
 
 import java.util.List;
 
@@ -11,6 +11,10 @@ public class Section {
 		return this.name;
 	}
 
+	public Section(String name){
+		this.name = name;
+	}
+	
 	/**
 	 * 
 	 * @param name
@@ -27,18 +31,22 @@ public class Section {
 	 * 
 	 * @param lection
 	 */
-	public void addLections(Lection lection) {
+	public void addLections(Lection newLection) {
 		// TODO - implement Section.addLections
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		this.lections.add(newLection);
 	}
 
 	/**
 	 * 
 	 * @param lection
 	 */
-	public void deleteLection(Lection lection) {
+	public void deleteLection(Lection deleteLection) {
 		// TODO - implement Section.deleteLection
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		this.lections.remove(deleteLection);
 	}
 
+	
+	
 }

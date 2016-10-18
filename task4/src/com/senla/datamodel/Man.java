@@ -1,8 +1,19 @@
-package task4.datamodel;
+package com.senla.datamodel;
 public class Man {
 
+	private int id;
 	private String firstName;
 	private String secondName;
+
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getFirstName() {
 		return this.firstName;

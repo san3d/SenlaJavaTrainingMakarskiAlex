@@ -1,4 +1,4 @@
-package datamodel.com.makarski.task4;
+package com.senla.datamodel;
 
 import java.util.Date;
 import java.util.List;
@@ -10,7 +10,13 @@ public class Course {
 	private List<Section> sections;
 	private List<Lecturer> lecturers;
 	private List<Student> students;
-
+	private List<Lection> allLections;
+	
+	public Course(String name, Date startDate){
+		this.name=name;
+		this.startDate=startDate;
+	}
+	
 	public String getName() {
 		return this.name;
 	}
@@ -43,72 +49,83 @@ public class Course {
 	 * 
 	 * @param section
 	 */
-	public void addSection(Section section) {
-		// TODO - implement Course.addSection
-		throw new UnsupportedOperationException();
+	public void addSection(Section newSection) {
+		//throw new UnsupportedOperationException();
+		sections.add(newSection);
 	}
 
 	/**
 	 * 
 	 * @param section
 	 */
-	public void deleteSection(Section section) {
+	public void deleteSection(Section deleteSection) {
 		// TODO - implement Course.deleteSection
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		sections.remove(deleteSection);
 	}
 
 	public List<Lecturer> getLecturers() {
-		return this.lecturers;
+		return lecturers;
 	}
 
 	/**
 	 * 
 	 * @param lecturer
 	 */
-	public void addLecturer(Lecturer lecturer) {
+	public void addLecturer(Lecturer newLecturer) {
 		// TODO - implement Course.addLecturer
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		lecturers.add(newLecturer);
 	}
 
 	/**
 	 * 
 	 * @param lecturer
 	 */
-	public void deleteLecturer(Lecturer lecturer) {
+	public void deleteLecturer(Lecturer deleteLecturer) {
 		// TODO - implement Course.deleteLecturer
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		lecturers.remove(deleteLecturer);
 	}
 
 	public List<Student> getStudents() {
-		return this.students;
+		return students;
 	}
 
 	/**
 	 * 
 	 * @param students
 	 */
-	public void addStudent(Student students) {
+	public void addStudent(Student newStudent) {
 		// TODO - implement Course.addStudent
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		students.add(newStudent);
 	}
 
 	/**
 	 * 
 	 * @param student
 	 */
-	public void deleteStudent(Student student) {
+	public void deleteStudent(Student deleteStudent) {
 		// TODO - implement Course.deleteStudent
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		students.remove(deleteStudent);
 	}
 
 	public int getQuantityOfStudents() {
 		// TODO - implement Course.getQuantityOfStudents
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		return students.size();
 	}
 
-	public void getLections() {
+	public List<Lection> getLections() {
 		// TODO - implement Course.getLections
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		allLections.clear();
+		for (Section w: sections){
+			allLections.addAll(w.getLections());
+		}
+		return allLections;
 	}
 
 }
