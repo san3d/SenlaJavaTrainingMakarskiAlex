@@ -4,14 +4,17 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+<<<<<<< HEAD
 <<<<<<< HEAD
 hs_err_pid*
 =======
 hs_err_pid*
 task3/.project
 >>>>>>> 8b0e2cf24599782959c93536d62c1dc8642b4a66
+=======
+hs_err_pid*
+>>>>>>> 31f336f8157c04be26ad059632ef0294b4875569
