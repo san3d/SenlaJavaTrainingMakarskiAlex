@@ -20,7 +20,9 @@ public class StudentDAO implements IStudentDAO {
 	}
 
 	public void addStudent(Student newStudent) {
-		newStudent.setId(IDGenerator.generateUUID());
+		if (newStudent.getId().isEmpty()) {
+			newStudent.setId(IDGenerator.generateUUID());
+		}
 		students.add(newStudent);
 	}
 
@@ -56,7 +58,7 @@ public class StudentDAO implements IStudentDAO {
 			}
 		}
 	}
-	
+
 	public List<Lection> getLectionsOfStudent(Student student) {
 		List<Lection> list = null;
 		for (Student k : students) {
@@ -76,7 +78,7 @@ public class StudentDAO implements IStudentDAO {
 			}
 		}
 	}
-	
+
 	public void deleteLectionInStudent(String studentId, Lection deletedLection) {
 		for (int i = 0; i < students.size(); i++) {
 			if (students.get(i).getId().equals(studentId)) {
