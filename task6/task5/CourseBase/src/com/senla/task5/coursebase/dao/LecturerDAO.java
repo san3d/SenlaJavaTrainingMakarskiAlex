@@ -24,7 +24,9 @@ public class LecturerDAO implements ILecturerDAO {
 	}
 
 	public void addLecturer(Lecturer newLecturer) {
-		newLecturer.setId(IDGenerator.generateUUID());
+		if (newLecturer.getId().isEmpty()) {
+			newLecturer.setId(IDGenerator.generateUUID());
+		}
 		lecturers.add(newLecturer);
 	}
 
@@ -80,7 +82,7 @@ public class LecturerDAO implements ILecturerDAO {
 			}
 		}
 	}
-	
+
 	public void deleteLectionInLecturer(String lecturerId, Lection deletedLection) {
 		for (int i = 0; i < lecturers.size(); i++) {
 			if (lecturers.get(i).getId().equals(lecturerId)) {

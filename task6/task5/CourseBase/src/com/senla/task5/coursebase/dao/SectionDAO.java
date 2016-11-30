@@ -20,7 +20,9 @@ public class SectionDAO implements ISectionDAO {
 	}
 
 	public void addSection(Section newSection) {
-		newSection.setId(IDGenerator.generateUUID());
+		if (newSection.getId().isEmpty()) {
+			newSection.setId(IDGenerator.generateUUID());
+		}
 		sections.add(newSection);
 	}
 

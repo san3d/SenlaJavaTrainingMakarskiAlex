@@ -3,7 +3,6 @@ package com.senla.task5.coursebase.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.Date;
 import java.util.List;
 
@@ -53,29 +52,35 @@ public class Facade {
 			List<Course> loadList = fileWorker.readCoursesFromFile(path);
 			// прогоняем новый импоритрованный список по имеющимся сущностям
 			for (Course l : loadList) {
-				// проверяем загруженный список с имеющимся по id
-				for (Course f : getCourses()) {
-					// если у нас есть сущность с таким id то обновляем её
-					// значения
-					if (f.getID().equals(l.getID())) {
-						f.setName(l.getName());
-						f.setStartDate(l.getStartDate());
-						f.setLecturers(l.getLecturers());
-						f.setStudents(l.getStudents());
-						f.setSections(l.getSections());
-						
+				// если база курсов пуста, то добавим сущность
+				if (getCourses().isEmpty()) {
+					addCourse(l);
+					// иначе проверяем загруженный список с имеющимся по id
+				} else {
+					boolean contains = false;
+					for (Course f : getCourses()) {
+						// если у нас есть сущность с таким id то обновляем её
+						// значения
+						if (f.getID().equals(l.getID())) {
+							contains = true;
+							f.setName(l.getName());
+							f.setStartDate(l.getStartDate());
+							f.setLecturers(l.getLecturers());
+							f.setStudents(l.getStudents());
+							f.setSections(l.getSections());
+						}
 					}
 					// если нет такой сущности то добавляем её как новую
-					else {
+					if (!contains) {
 						addCourse(l);
 					}
 				}
 			}
-		} catch (IllegalArgumentException e) {
+		} catch (
+
+		IllegalArgumentException e) {
 			logger.error(e.getMessage());
 		} catch (ParseException e) {
-			logger.error(e.getMessage());
-		} catch (ConcurrentModificationException e) {
 			logger.error(e.getMessage());
 		}
 	}
@@ -262,12 +267,12 @@ public class Facade {
 
 		stringBuilder1.append("Course name: ");
 		stringBuilder1.append(course.getName());
-		System.out.println(stringBuilder1);
+		logger.info("stringBuilder1");
 
 		StringBuilder stringBuilder2 = new StringBuilder();
 		stringBuilder2.append("Course start Date: ");
 		stringBuilder2.append(StringDateConverter.dateToString(course.getStartDate()));
-		System.out.println(stringBuilder2);
+		logger.info("stringBuilder2");
 		printLecturersInCourse(course);
 		printStudentsInCourse(course);
 	}
@@ -285,7 +290,7 @@ public class Facade {
 	public void printSectionsInCourse(Course course) {
 		logger.info("PrintSectionsInCourseMsg()");
 		for (Section n : course.getSections()) {
-			System.out.println(n.getName());
+			logger.info(n.getName());
 		}
 	}
 
@@ -350,7 +355,7 @@ public class Facade {
 	public void readCoursesFromFile(String path) throws ParseException {
 		try {
 			List<Course> list = fileWorker.readCoursesFromFile(path);
-			System.out.println("list.size() =" + list.size());
+			logger.info("list.size() =" + list.size());
 			/*
 			 * for (Course c : list) { courseService.addCourse(c); }
 			 */

@@ -63,6 +63,7 @@ public class ScheduleAction implements IAction {
 			if (Facade.getInstance().getStudents().isEmpty()) {
 				Printer.print(EMPTY_STUDENTS_BASE);
 				student = AnyStudentCreator.createStudent();
+				Facade.getInstance().addStudent(student);
 			} else {
 				Printer.print(SELECT_STUDENT);
 				scanner = new Scanner(System.in);

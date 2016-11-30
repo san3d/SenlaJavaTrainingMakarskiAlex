@@ -27,7 +27,9 @@ public class LectionDAO implements ILectionDAO {
 	}
 
 	public void addLection(Lection newLection) {
-		newLection.setId(IDGenerator.generateUUID());
+		if (newLection.getId().isEmpty()) {
+			newLection.setId(IDGenerator.generateUUID());
+		}
 		lections.add(newLection);
 	}
 
@@ -103,9 +105,9 @@ public class LectionDAO implements ILectionDAO {
 			}
 		}
 	}
-	
+
 	public int getQuantityOfStudents(String lectionID) {
-		int q =0;
+		int q = 0;
 		for (Lection k : lections) {
 			if (k.getId().equals(lectionID)) {
 				q = k.getQuantityOfStudents();

@@ -34,7 +34,9 @@ public class CourseDAO implements ICourseDAO {
 	}
 
 	public void addCourse(Course newCourse) {
-		newCourse.setID(IDGenerator.generateUUID());
+		if (newCourse.getID().isEmpty()) {
+			newCourse.setID(IDGenerator.generateUUID());
+		}
 		courses.add(newCourse);
 	}
 
