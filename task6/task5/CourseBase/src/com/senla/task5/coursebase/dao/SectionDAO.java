@@ -3,6 +3,8 @@ package com.senla.task5.coursebase.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.senla.task5.coursebase.dao.interfaces.ISectionDAO;
 import com.senla.task5.coursebase.datamodel.Course;
 import com.senla.task5.coursebase.datamodel.Lection;
@@ -10,6 +12,7 @@ import com.senla.task5.coursebase.datamodel.Section;
 
 public class SectionDAO implements ISectionDAO {
 	private List<Section> sections = new ArrayList<>();;
+	private Logger logger = Logger.getLogger(SectionDAO.class);
 
 	public List<Section> getSections() {
 		return sections;
@@ -20,8 +23,12 @@ public class SectionDAO implements ISectionDAO {
 	}
 
 	public void addSection(Section newSection) {
-		if (newSection.getId().isEmpty()) {
-			newSection.setId(IDGenerator.generateUUID());
+		try {
+			if (newSection.getId() == null || newSection.getId().isEmpty()) {
+				newSection.setId(IDGenerator.generateUUID());
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getMessage());
 		}
 		sections.add(newSection);
 	}

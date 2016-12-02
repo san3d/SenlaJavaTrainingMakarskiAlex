@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.senla.task5.coursebase.comparator.LectionAlphabetComparator;
 import com.senla.task5.coursebase.comparator.LectionDateComparator;
 import com.senla.task5.coursebase.dao.interfaces.ILectionDAO;
@@ -17,6 +19,7 @@ import com.senla.task5.coursebase.datamodel.Student;
 public class LectionDAO implements ILectionDAO {
 
 	private List<Lection> lections = new ArrayList<>();
+	private Logger logger = Logger.getLogger(LectionDAO.class);
 
 	public List<Lection> getLections() {
 		return lections;
@@ -27,8 +30,12 @@ public class LectionDAO implements ILectionDAO {
 	}
 
 	public void addLection(Lection newLection) {
-		if (newLection.getId().isEmpty()) {
-			newLection.setId(IDGenerator.generateUUID());
+		try {
+			if (newLection.getId() == null || newLection.getId().isEmpty()) {
+				newLection.setId(IDGenerator.generateUUID());
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getMessage());
 		}
 		lections.add(newLection);
 	}

@@ -18,7 +18,6 @@ public class StringDateConverter {
 			logger.error(e.getMessage());
 		}
 		return date;
-
 	}
 
 	public static String dateToString(Date date) {

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.senla.task5.coursebase.comparator.LecturerAlphabetComparator;
 import com.senla.task5.coursebase.comparator.LecturerCourseQuantityComparator;
 import com.senla.task5.coursebase.dao.interfaces.ILecturerDAO;
@@ -14,6 +16,7 @@ import com.senla.task5.coursebase.datamodel.Lecturer;
 public class LecturerDAO implements ILecturerDAO {
 
 	private List<Lecturer> lecturers = new ArrayList<>();
+	private Logger logger = Logger.getLogger(LecturerDAO.class);
 
 	public List<Lecturer> getLecturers() {
 		return lecturers;
@@ -24,8 +27,12 @@ public class LecturerDAO implements ILecturerDAO {
 	}
 
 	public void addLecturer(Lecturer newLecturer) {
-		if (newLecturer.getId().isEmpty()) {
-			newLecturer.setId(IDGenerator.generateUUID());
+		try {
+			if (newLecturer.getId() == null || newLecturer.getId().isEmpty()) {
+				newLecturer.setId(IDGenerator.generateUUID());
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getMessage());
 		}
 		lecturers.add(newLecturer);
 	}

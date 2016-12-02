@@ -9,20 +9,22 @@ import org.apache.log4j.Logger;
 
 public class PropLoader {
 
-	PropHolder propHolder = new PropHolder();
-	private Logger logger = Logger.getLogger(PropLoader.class);
+	private static Logger logger = Logger.getLogger(PropLoader.class);
 
-	public PropHolder loadProperties() {
+	private static PropHolder propHolder = null;
+
+	public static PropHolder loadProperties() {
 		Properties prop = new Properties();
-		try {
-			prop.load(new FileInputStream(new File("config/config.properties")));
-			propHolder.setMaxQuantityStudentsOnDay(
-					Integer.parseInt(prop.get("MAX_QUANTITY_STUDENTS_ON_DAY").toString()));
-		} catch (IOException e) {
-			logger.error(e.getMessage());
+		if (propHolder == null) {
+			try {
+				prop.load(new FileInputStream(new File("config/config.properties")));
+				propHolder = new PropHolder();
+				propHolder.setMaxQuantityStudentsOnDay(
+						Integer.parseInt(prop.getProperty("MAX_QUANTITY_STUDENTS_ON_DAY")));
+			} catch (IOException e) {
+				logger.error(e.getMessage());
+			}
 		}
 		return propHolder;
-
 	}
-
 }

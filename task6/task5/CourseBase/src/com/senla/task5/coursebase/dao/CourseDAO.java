@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.senla.task5.coursebase.comparator.*;
 import com.senla.task5.coursebase.dao.interfaces.ICourseDAO;
 import com.senla.task5.coursebase.datamodel.Course;
@@ -17,6 +19,7 @@ import com.senla.task5.coursebase.datamodel.Student;
 public class CourseDAO implements ICourseDAO {
 
 	private List<Course> courses = new ArrayList<>();
+	private Logger logger = Logger.getLogger(CourseDAO.class);
 
 	public Course cloneCourse(Course course) throws CloneNotSupportedException {
 		Course cloneCourse;
@@ -34,8 +37,12 @@ public class CourseDAO implements ICourseDAO {
 	}
 
 	public void addCourse(Course newCourse) {
-		if (newCourse.getID().isEmpty()) {
-			newCourse.setID(IDGenerator.generateUUID());
+		try {
+			if (newCourse.getID() == null || newCourse.getID().isEmpty()) {
+				newCourse.setID(IDGenerator.generateUUID());
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getMessage());
 		}
 		courses.add(newCourse);
 	}
