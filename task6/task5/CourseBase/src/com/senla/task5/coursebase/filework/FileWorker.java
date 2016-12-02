@@ -13,7 +13,7 @@ public class FileWorker {
 		TextFileWorker tfw = new TextFileWorker(path);
 		String[] str = new String[courses.size()];
 		for (Course course : courses) {
-			String courseString = new CourseToString().courseToString(course);
+			String courseString = CourseToString.courseToString(course);
 			for (int i = 0; i < str.length; i++) {
 				if (str[i] == null) {
 					str[i] = courseString;
@@ -27,13 +27,12 @@ public class FileWorker {
 	public List<Course> readCoursesFromFile(String path) throws ParseException {
 		TextFileWorker tfw = new TextFileWorker(path);
 		String[] coursesString = tfw.readFromFile();
-		List<Course> data = new ArrayList<>();
-		StringToCourse stc = new StringToCourse();
+		List<Course> courses = new ArrayList<>();
 		for (int i = 0; i < coursesString.length; i++) {
 			if (coursesString[i] != null) {
-				data.add((stc.stringToCourse(coursesString[i])));
+				courses.add((StringToCourse.stringToCourse(coursesString[i])));
 			}
 		}
-		return data;
+		return courses;
 	}
 }

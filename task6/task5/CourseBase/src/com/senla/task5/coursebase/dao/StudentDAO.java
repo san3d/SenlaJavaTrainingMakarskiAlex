@@ -3,13 +3,16 @@ package com.senla.task5.coursebase.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.senla.task5.coursebase.dao.interfaces.IStudentDAO;
 import com.senla.task5.coursebase.datamodel.Course;
 import com.senla.task5.coursebase.datamodel.Lection;
 import com.senla.task5.coursebase.datamodel.Student;
 
 public class StudentDAO implements IStudentDAO {
-	private List<Student> students = new ArrayList<>();;
+	private List<Student> students = new ArrayList<>();
+	private Logger logger = Logger.getLogger(StudentDAO.class);
 
 	public List<Student> getStudents() {
 		return students;
@@ -20,8 +23,12 @@ public class StudentDAO implements IStudentDAO {
 	}
 
 	public void addStudent(Student newStudent) {
-		if (newStudent.getId().isEmpty()) {
-			newStudent.setId(IDGenerator.generateUUID());
+		try {
+			if (newStudent.getId() == null || newStudent.getId().isEmpty()) {
+				newStudent.setId(IDGenerator.generateUUID());
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getMessage());
 		}
 		students.add(newStudent);
 	}

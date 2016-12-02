@@ -50,17 +50,12 @@ public class Facade {
 	public void importCourses(String path) {
 		try {
 			List<Course> loadList = fileWorker.readCoursesFromFile(path);
-			// прогоняем новый импоритрованный список по имеющимся сущностям
-			for (Course l : loadList) {
-				// если база курсов пуста, то добавим сущность
-				if (getCourses().isEmpty()) {
-					addCourse(l);
-					// иначе проверяем загруженный список с имеющимся по id
-				} else {
+			if (getCourses().isEmpty()) {
+				setCourses(loadList);
+			} else {
+				for (Course l : loadList) {
 					boolean contains = false;
 					for (Course f : getCourses()) {
-						// если у нас есть сущность с таким id то обновляем её
-						// значения
 						if (f.getID().equals(l.getID())) {
 							contains = true;
 							f.setName(l.getName());
@@ -70,7 +65,6 @@ public class Facade {
 							f.setSections(l.getSections());
 						}
 					}
-					// если нет такой сущности то добавляем её как новую
 					if (!contains) {
 						addCourse(l);
 					}
@@ -183,8 +177,7 @@ public class Facade {
 	}
 
 	public boolean getResolutionMaxStudentOnLection(Lection lection) {
-		PropLoader propLoader = new PropLoader();
-		PropHolder propHolder = propLoader.loadProperties();
+		PropHolder propHolder = PropLoader.loadProperties();
 		// читаем из проперти максимальное число студентов
 		int a = propHolder.getMaxQuantityStudentsOnDay();
 		// читаем сколько студентов на лекции сейчас
@@ -363,10 +356,12 @@ public class Facade {
 		}
 	}
 
-	public void writeCoursesToFile(List<Course> courses, String path) throws ParseException {
+	public void writeCoursesToFile(List<Course> courses, String path) {
 		try {
 			fileWorker.writeCoursesToFile(courses, path);
 		} catch (IllegalArgumentException e) {
+			logger.error(e.getMessage());
+		} catch (ParseException e) {
 			logger.error(e.getMessage());
 		}
 	}
