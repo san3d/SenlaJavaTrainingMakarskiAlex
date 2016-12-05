@@ -14,10 +14,11 @@ public class PropLoader {
 	private static PropHolder propHolder = null;
 
 	public static PropHolder loadProperties() {
-		Properties prop = new Properties();
+
 		if (propHolder == null) {
-			try {
-				prop.load(new FileInputStream(new File("config/config.properties")));
+			try (FileInputStream fis = new FileInputStream(new File("config/config.properties"))) {
+				Properties prop = new Properties();
+				prop.load(fis);
 				propHolder = new PropHolder();
 				propHolder.setMaxQuantityStudentsOnDay(
 						Integer.parseInt(prop.getProperty("MAX_QUANTITY_STUDENTS_ON_DAY")));
