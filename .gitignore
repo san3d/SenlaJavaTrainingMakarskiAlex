@@ -4,6 +4,10 @@
 .mtj.tmp/
 
 # Package Files #
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7781170f3a4d188158f3a758a1253f40087ad08c
 *.war
 *.ear
 
