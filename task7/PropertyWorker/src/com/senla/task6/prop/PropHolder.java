@@ -1,15 +1,18 @@
 package com.senla.task6.prop;
 
+import java.util.Map;
+import java.util.Properties;
+
 public class PropHolder {
 	
-	private int maxQuantityStudentsOnDay;
-
-	public int getMaxQuantityStudentsOnDay() {
-		return maxQuantityStudentsOnDay;
+	public Map<String, String> getHolder() {
+		return holder;
 	}
 
-	public void setMaxQuantityStudentsOnDay(int maxQuantityStudentsOnDay) {
-		this.maxQuantityStudentsOnDay = maxQuantityStudentsOnDay;
+	public void setHolder(Map<String, String> holder) {
+		this.holder = holder;
 	}
+
+	private Map<String, String> holder ;
 
 }

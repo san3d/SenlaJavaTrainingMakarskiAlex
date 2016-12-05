@@ -10,17 +10,16 @@ import org.apache.log4j.Logger;
 public class PropLoader {
 
 	private static Logger logger = Logger.getLogger(PropLoader.class);
-
 	private static PropHolder propHolder = null;
 
-	public static PropHolder loadProperties() {
-		Properties prop = new Properties();
+	public static PropHolder getProperties(String that, String path) {
 		if (propHolder == null) {
-			try {
-				prop.load(new FileInputStream(new File("config/config.properties")));
+			try (FileInputStream fis = new FileInputStream(new File(path))) {
+				Properties prop = new Properties();
+				prop.load(fis);
+
 				propHolder = new PropHolder();
-				propHolder.setMaxQuantityStudentsOnDay(
-						Integer.parseInt(prop.getProperty("MAX_QUANTITY_STUDENTS_ON_DAY")));
+				propHolder.setHolder(prop.getProperty(that));
 			} catch (IOException e) {
 				logger.error(e.getMessage());
 			}
