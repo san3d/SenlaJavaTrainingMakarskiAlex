@@ -22,8 +22,7 @@ import com.senla.task5.coursebase.service.interfaces.ISectionService;
 import com.senla.task5.coursebase.service.interfaces.IStudentService;
 import com.senla.task6.controller.Aggregator;
 import com.senla.task6.controller.Serializator;
-import com.senla.task6.prop.PropHolder;
-import com.senla.task6.prop.PropLoader;
+import com.senla.task6.prop.PropertyLoader;
 
 public class Facade {
 
@@ -176,11 +175,12 @@ public class Facade {
 		return c;
 	}
 
+
 	public boolean getResolutionMaxStudentOnLection(Lection lection) {
-		PropHolder propHolder = PropLoader.loadProperties();
-		// читаем из проперти максимальное число студентов
+		PropertyLoader.getProperty(that, path)
+
 		int a = propHolder.getMaxQuantityStudentsOnDay();
-		// читаем сколько студентов на лекции сейчас
+
 		int b = getQuantityOfStudentsOnLection(lection);
 		boolean c = false;
 		if (a >= b) {
