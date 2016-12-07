@@ -23,6 +23,7 @@ import com.senla.task5.coursebase.service.interfaces.IStudentService;
 import com.senla.task6.controller.Aggregator;
 import com.senla.task6.controller.Serializator;
 import com.senla.task6.prop.PropertyLoader;
+import com.senla.task7.annotations.AnnotationConfigurator;
 
 public class Facade {
 
@@ -36,6 +37,8 @@ public class Facade {
 	private Logger logger = Logger.getLogger(Facade.class);
 
 	private Facade() {
+		AnnotationConfigurator annotationConfigurator = new AnnotationConfigurator();
+		annotationConfigurator.configure(Facade.class);
 	}
 
 	private static class SingletonHelper {

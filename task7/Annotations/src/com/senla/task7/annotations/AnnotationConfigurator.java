@@ -6,28 +6,44 @@ import com.senla.task6.prop.PropertyLoader;
 
 public class AnnotationConfigurator {
 
-	private static final Logger log = Logger.getLogger(AnnotationConfigurator.class);
+	private static final Logger logger = Logger.getLogger(AnnotationConfigurator.class);
 
-	public void loadAnnotationConfig(Object object) {
+	public void configure(Object object) {
+
 		Class<?> class1 = object.getClass();
+
 		for (Field field : class1.getDeclaredFields()) {
+
 			if (field.isAnnotationPresent(ConfigProperty.class)) {
+
 				ConfigProperty configProperty = field.getAnnotation(ConfigProperty.class);
-				String fieldValue = PropertyLoader.getProperty(configProperty.propertyName(), configProperty.configName());
+
+				// определим propertyName()
+				String propertyName = "";
+				if (configProperty.propertyName() == null || configProperty.propertyName().isEmpty()) {
+					propertyName = class1.getName().concat(".").concat(field.getName());
+				}
+
+				// загрузим значение из проперти по configName()
+				String value = PropertyLoader.getProperty(propertyName, configProperty.configName());
 				field.setAccessible(true);
+
+				// разберёмся с типом
 				if (configProperty.type().equals(String.class)) {
 					try {
-						field.set(object, fieldValue);
+						field.set(object, value);
 					} catch (IllegalArgumentException | IllegalAccessException e) {
-						log.error(e.getMessage());
+						logger.error(e.getMessage());
 					}
+
 				} else if (configProperty.type().equals(int.class)) {
 					try {
-						field.set(object, Integer.parseInt(fieldValue));
+						field.set(object, Integer.parseInt(value));
 					} catch (IllegalArgumentException | IllegalAccessException e) {
-						log.error(e.getMessage());
+						logger.error(e.getMessage());
 					}
 				}
+
 				field.setAccessible(false);
 			}
 		}
