@@ -22,11 +22,13 @@ import com.senla.task5.coursebase.service.interfaces.ISectionService;
 import com.senla.task5.coursebase.service.interfaces.IStudentService;
 import com.senla.task6.controller.Aggregator;
 import com.senla.task6.controller.Serializator;
-import com.senla.task6.prop.PropertyLoader;
+//import com.senla.task6.prop.PropertyLoader;
 import com.senla.task7.annotations.AnnotationConfigurator;
+import com.senla.task7.annotations.ConfigProperty;
+import com.senla.task7.service.DependencyInjection;
 
 public class Facade {
-
+	@ConfigProperty
 	private ICourseService courseService;
 	private ILectionService lectionService;
 	private ILecturerService lecturerService;
@@ -34,11 +36,24 @@ public class Facade {
 	private IStudentService studentService;
 	private FileWorker fileWorker;
 
+	@ConfigProperty
+	private int maxQuantityStudentsOnDay = 0;
+
+	public int getMaxQuantityStudentsOnDay() {
+		return maxQuantityStudentsOnDay;
+	}
+	
+	public void setMaxQuantityStudentsOnDay(int maxQuantityStudentsOnDay) {
+		this.maxQuantityStudentsOnDay = maxQuantityStudentsOnDay;
+	}
+
 	private Logger logger = Logger.getLogger(Facade.class);
 
 	private Facade() {
-		AnnotationConfigurator annotationConfigurator = new AnnotationConfigurator();
-		annotationConfigurator.configure(Facade.class);
+
+		AnnotationConfigurator.configure(Facade.class);
+		DependencyInjection.load(Facade.class);
+
 	}
 
 	private static class SingletonHelper {
@@ -178,12 +193,8 @@ public class Facade {
 		return c;
 	}
 
-
 	public boolean getResolutionMaxStudentOnLection(Lection lection) {
-		PropertyLoader.getProperty(that, path)
-
-		int a = propHolder.getMaxQuantityStudentsOnDay();
-
+		int a = getMaxQuantityStudentsOnDay();
 		int b = getQuantityOfStudentsOnLection(lection);
 		boolean c = false;
 		if (a >= b) {

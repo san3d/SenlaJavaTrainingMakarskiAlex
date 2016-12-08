@@ -15,7 +15,7 @@ public @interface ConfigProperty {
 
 	String configName() default "CourseBase/config/config.properties";
 
-	String propertyName();
+	String propertyName() default "";
 
 	Class<?> type() default String.class;
 }

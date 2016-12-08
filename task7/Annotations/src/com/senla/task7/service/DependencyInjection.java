@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 
 import com.senla.task6.prop.PropertyLoader;
 
-public class AnnotationService {
-	private static final String path = "CourseUI/config/config.properties";
-	private static final Logger logger = Logger.getLogger(AnnotationService.class);
+public class DependencyInjection {
+	private static final String path = "CourseBase/config/config.properties";
+	private static Logger logger = Logger.getLogger(DependencyInjection.class);
 	private static Map<String, Object> dHolder;
 
 	public static Object load(Class<?> class1) {

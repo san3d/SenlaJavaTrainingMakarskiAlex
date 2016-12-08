@@ -6,16 +6,16 @@ import com.senla.task6.prop.PropertyLoader;
 
 public class AnnotationConfigurator {
 
-	private static final Logger logger = Logger.getLogger(AnnotationConfigurator.class);
+	private static Logger logger = Logger.getLogger(AnnotationConfigurator.class);
 
-	public void configure(Object object) {
+	public static void configure(Object object) {
 
 		Class<?> class1 = object.getClass();
 
 		for (Field field : class1.getDeclaredFields()) {
 
 			if (field.isAnnotationPresent(ConfigProperty.class)) {
-
+				System.out.println("true");
 				ConfigProperty configProperty = field.getAnnotation(ConfigProperty.class);
 
 				// определим propertyName()
@@ -36,14 +36,15 @@ public class AnnotationConfigurator {
 						logger.error(e.getMessage());
 					}
 
-				} else if (configProperty.type().equals(int.class)) {
+				} else
+					System.out.println("true1");
+				if (configProperty.type().equals(int.class)) {
 					try {
 						field.set(object, Integer.parseInt(value));
 					} catch (IllegalArgumentException | IllegalAccessException e) {
 						logger.error(e.getMessage());
 					}
 				}
-
 				field.setAccessible(false);
 			}
 		}
