@@ -11,8 +11,11 @@ public class MainClass {
 	public static void main(String[] arg) throws ParseException {
 
 		Facade facade = FacadeBuilder.buildFacade();
-		facade.readCoursesFromFile("CoursesBase.txt");
-		facade.getCourseStartDateComparator();
+		System.out.println("qqqq");
+		System.out.println(facade.getMaxQuantityStudentsOnDay());
+		
+		//facade.readCoursesFromFile("CoursesBase.txt");
+		//facade.getCourseStartDateComparator();
 
 		//facade.getCourseAfterDateComparator(StringDateConverter.stringToDate("01.11.2016"));
 		//facade.getCourseBetweenDateComparator(StringDateConverter.stringToDate("01.10.2016"), StringDateConverter.stringToDate("01.11.2016")); 

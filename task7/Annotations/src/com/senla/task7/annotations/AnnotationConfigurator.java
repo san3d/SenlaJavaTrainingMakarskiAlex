@@ -2,40 +2,51 @@ package com.senla.task7.annotations;
 
 import java.lang.reflect.Field;
 import org.apache.log4j.Logger;
-import com.senla.task6.prop.PropLoader;
+import com.senla.task6.prop.PropertyLoader;
 
 public class AnnotationConfigurator {
 
-		private static final Logger logger = Logger.getLogger(AnnotationConfigurator.class);
+	private static Logger logger = Logger.getLogger(AnnotationConfigurator.class);
 
-		public void initConfig(Object ob) {
+	public static void configure(Object object) {
 
-			Class<?> clazz = ob.getClass();
-			for (Field field : clazz.getDeclaredFields()) {
+		Class<?> class1 = object.getClass();
 
-				if (field.isAnnotationPresent(ConfigProperty.class)) {
-					ConfigProperty confProp = field.getAnnotation(ConfigProperty.class);
-					String fieldValue = PropLoader.getProperties(confProp.propertyName(), confProp.configName());
-					field.setAccessible(true);
+		for (Field field : class1.getDeclaredFields()) {
 
-					if (confProp.type().equals(String.class)) {
-						try {
-							field.set(ob, fieldValue);
-						} catch (IllegalArgumentException | IllegalAccessException e) {
-							logger.error(e.getMessage());
-						}
-					} else if (confProp.type().equals(int.class)) {
+			if (field.isAnnotationPresent(ConfigProperty.class)) {
+				System.out.println("true");
+				ConfigProperty configProperty = field.getAnnotation(ConfigProperty.class);
 
-						try {
-							field.set(ob, Integer.parseInt(fieldValue));
-						} catch (IllegalArgumentException | IllegalAccessException e) {
-							logger.error(e.getMessage());
-						}
+				// определим propertyName()
+				String propertyName = "";
+				if (configProperty.propertyName() == null || configProperty.propertyName().isEmpty()) {
+					propertyName = class1.getName().concat(".").concat(field.getName());
+				}
+
+				// загрузим значение из проперти по configName()
+				String value = PropertyLoader.getProperty(propertyName, configProperty.configName());
+				field.setAccessible(true);
+
+				// разберёмся с типом
+				if (configProperty.type().equals(String.class)) {
+					try {
+						field.set(object, value);
+					} catch (IllegalArgumentException | IllegalAccessException e) {
+						logger.error(e.getMessage());
 					}
 
-					field.setAccessible(false);
+				} else
+					System.out.println("true1");
+				if (configProperty.type().equals(int.class)) {
+					try {
+						field.set(object, Integer.parseInt(value));
+					} catch (IllegalArgumentException | IllegalAccessException e) {
+						logger.error(e.getMessage());
+					}
 				}
+				field.setAccessible(false);
 			}
 		}
-	
+	}
 }

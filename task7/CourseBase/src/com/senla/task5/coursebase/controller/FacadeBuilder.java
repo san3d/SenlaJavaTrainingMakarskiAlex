@@ -3,6 +3,7 @@ package com.senla.task5.coursebase.controller;
 import com.senla.task5.coursebase.dao.*;
 import com.senla.task5.coursebase.filework.FileWorker;
 import com.senla.task5.coursebase.service.*;
+import com.senla.task7.annotations.AnnotationConfigurator;
 
 public class FacadeBuilder {
 
