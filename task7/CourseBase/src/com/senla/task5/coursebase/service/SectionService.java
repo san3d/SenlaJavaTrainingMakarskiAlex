@@ -7,9 +7,11 @@ import com.senla.task5.coursebase.datamodel.Course;
 import com.senla.task5.coursebase.datamodel.Lection;
 import com.senla.task5.coursebase.datamodel.Section;
 import com.senla.task5.coursebase.service.interfaces.ISectionService;
+import com.senla.task7.annotations.ConfigProperty;
 
 public class SectionService implements ISectionService {
 
+	@ConfigProperty
 	private ISectionDAO sectionDAO;
 
 	public SectionService(ISectionDAO sectionDAO) {

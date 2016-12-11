@@ -5,14 +5,17 @@ import java.text.ParseException;
 import com.senla.task5.coursebase.controller.*;
 //import com.senla.task5.coursebase.datamodel.*;
 //import com.senla.task5.coursebase.service.StringDateConverter;
+import com.senla.task7.annotations.AnnotationConfigurator;
+import com.senla.task7.service.DependencyInjection;
 
 public class MainClass {
 
 	public static void main(String[] arg) throws ParseException {
 
-		Facade facade = FacadeBuilder.buildFacade();
-		System.out.println("qqqq");
-		System.out.println(facade.getMaxQuantityStudentsOnDay());
+		//Facade.getInstance(); 
+		//FacadeBuilder.buildFacade();
+		System.out.println("start");
+		System.out.println(Facade.getInstance().getMaxQuantityStudentsOnDay());
 		
 		//facade.readCoursesFromFile("CoursesBase.txt");
 		//facade.getCourseStartDateComparator();

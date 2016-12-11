@@ -22,7 +22,6 @@ import com.senla.task5.coursebase.service.interfaces.ISectionService;
 import com.senla.task5.coursebase.service.interfaces.IStudentService;
 import com.senla.task6.controller.Aggregator;
 import com.senla.task6.controller.Serializator;
-//import com.senla.task6.prop.PropertyLoader;
 import com.senla.task7.annotations.AnnotationConfigurator;
 import com.senla.task7.annotations.ConfigProperty;
 import com.senla.task7.service.DependencyInjection;
@@ -30,11 +29,14 @@ import com.senla.task7.service.DependencyInjection;
 public class Facade {
 	@ConfigProperty
 	private ICourseService courseService;
+	@ConfigProperty
 	private ILectionService lectionService;
+	@ConfigProperty
 	private ILecturerService lecturerService;
+	@ConfigProperty
 	private ISectionService sectionService;
+	@ConfigProperty
 	private IStudentService studentService;
-	private FileWorker fileWorker;
 
 	@ConfigProperty
 	private int maxQuantityStudentsOnDay = 0;
@@ -53,7 +55,7 @@ public class Facade {
 
 		AnnotationConfigurator.configure(Facade.class);
 		DependencyInjection.load(Facade.class);
-
+		
 	}
 
 	private static class SingletonHelper {
@@ -66,7 +68,7 @@ public class Facade {
 
 	public void importCourses(String path) {
 		try {
-			List<Course> loadList = fileWorker.readCoursesFromFile(path);
+			List<Course> loadList = FileWorker.readCoursesFromFile(path);
 			if (getCourses().isEmpty()) {
 				setCourses(loadList);
 			} else {
@@ -355,13 +357,9 @@ public class Facade {
 		this.studentService = studentService;
 	}
 
-	public void setFileWorker(FileWorker fileWorker) {
-		this.fileWorker = fileWorker;
-	}
-
 	public void readCoursesFromFile(String path) throws ParseException {
 		try {
-			List<Course> list = fileWorker.readCoursesFromFile(path);
+			List<Course> list = FileWorker.readCoursesFromFile(path);
 			logger.info("list.size() =" + list.size());
 			/*
 			 * for (Course c : list) { courseService.addCourse(c); }
@@ -372,7 +370,7 @@ public class Facade {
 
 	public void writeCoursesToFile(List<Course> courses, String path) {
 		try {
-			fileWorker.writeCoursesToFile(courses, path);
+			FileWorker.writeCoursesToFile(courses, path);
 		} catch (IllegalArgumentException e) {
 			logger.error(e.getMessage());
 		} catch (ParseException e) {

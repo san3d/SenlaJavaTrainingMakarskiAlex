@@ -7,9 +7,11 @@ import com.senla.task5.coursebase.datamodel.Course;
 import com.senla.task5.coursebase.datamodel.Lection;
 import com.senla.task5.coursebase.datamodel.Lecturer;
 import com.senla.task5.coursebase.service.interfaces.ILecturerService;
+import com.senla.task7.annotations.ConfigProperty;
 
 public class LecturerService implements ILecturerService {
 	
+	@ConfigProperty
 	ILecturerDAO lecturerDAO;
 	
 	public LecturerService(ILecturerDAO lecturerDAO) {

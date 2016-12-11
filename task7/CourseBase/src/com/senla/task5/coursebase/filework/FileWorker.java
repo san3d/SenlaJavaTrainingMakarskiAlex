@@ -9,7 +9,7 @@ import com.senla.task5.coursebase.datamodel.Course;
 
 public class FileWorker {
 
-	public void writeCoursesToFile(List<Course> courses, String path) throws ParseException {
+	public static void writeCoursesToFile(List<Course> courses, String path) throws ParseException {
 		TextFileWorker tfw = new TextFileWorker(path);
 		String[] str = new String[courses.size()];
 		for (Course course : courses) {
@@ -24,7 +24,7 @@ public class FileWorker {
 		tfw.writeToFile(str);
 	}
 
-	public List<Course> readCoursesFromFile(String path) throws ParseException {
+	public static List<Course> readCoursesFromFile(String path) throws ParseException {
 		TextFileWorker tfw = new TextFileWorker(path);
 		String[] coursesString = tfw.readFromFile();
 		List<Course> courses = new ArrayList<>();

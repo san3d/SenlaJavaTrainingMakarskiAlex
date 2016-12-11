@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
-import com.senla.task5.coursebase.controller.Facade;
-import com.senla.task5.coursebase.controller.FacadeBuilder;
+//import com.senla.task5.coursebase.controller.Facade;
+//import com.senla.task5.coursebase.controller.FacadeBuilder;
 import com.senla.task5.courseui.menu.interfaces.IMenu;
 
 public class Navigator {
@@ -29,7 +29,7 @@ public class Navigator {
 	private Logger logger = Logger.getLogger(Navigator.class);
 
 	@SuppressWarnings("unused")
-	private Facade facade = FacadeBuilder.buildFacade();
+	//private Facade facade = FacadeBuilder.buildFacade();
 
 	public void startMenu() {
 

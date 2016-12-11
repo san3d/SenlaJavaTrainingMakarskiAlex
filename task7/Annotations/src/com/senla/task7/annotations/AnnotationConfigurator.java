@@ -10,6 +10,7 @@ public class AnnotationConfigurator {
 
 	public static void configure(Object object) {
 
+		System.out.println(object.toString());
 		Class<?> class1 = object.getClass();
 
 		for (Field field : class1.getDeclaredFields()) {
