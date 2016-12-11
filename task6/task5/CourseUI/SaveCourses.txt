@@ -1,5 +1,0 @@
-c258c0d2-76cb-4473-aafd-57ec33eb5b89,Java for Android,06.09.2016;;;;
-f58028fb-b219-4edd-bcfb-2939beed5a3b,Java for All,08.11.2016;;;;
-9582538a-aebf-42ff-8b9a-886eeceacbb8,Java dlia normalnuh pacanov,01.01.2016;;;;
-aa396e2e-544f-4758-93c9-85988a795b1a,Java EE part 2,30.10.2016;;;;
-6d8d80fa-69a4-4a6f-9f2f-2c67426feaed,Java for Cats,15.12.2015;;;;

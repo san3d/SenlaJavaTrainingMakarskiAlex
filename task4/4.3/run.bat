@@ -1,1 +1,0 @@
-java -cp textFileWorker.jar;CourseScheduler.jar com.senla.task4.main.MainClass CB.txt
