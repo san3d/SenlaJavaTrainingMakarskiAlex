@@ -14,13 +14,17 @@ public class PropertyLoader {
 	private static Map<String, Properties> propHolder;
 
 	public static String getProperty(String field, String path) {
+
 		Properties property = null;
+
 		if (propHolder == null) {
 			propHolder = new HashMap<>();
 		}
+
 		if (propHolder.get(field) == null) {
 			property = new Properties();
-			try (FileInputStream fis = new FileInputStream(new File(path))) {
+			try (FileInputStream fis = new FileInputStream(new File(field))) {
+				
 				property.load(fis);
 				propHolder.put(field, property);
 			} catch (IOException e) {

@@ -8,9 +8,11 @@ import com.senla.task5.coursebase.datamodel.Lecturer;
 import com.senla.task5.coursebase.datamodel.Section;
 import com.senla.task5.coursebase.datamodel.Student;
 import com.senla.task5.coursebase.service.interfaces.ILectionService;
+import com.senla.task7.annotations.ConfigProperty;
 
 public class LectionService implements ILectionService {
-
+	
+	@ConfigProperty
 	private ILectionDAO lectionDAO;
 
 	public ILectionDAO getLectionDAO() {
@@ -60,8 +62,8 @@ public class LectionService implements ILectionService {
 	public void deleteStudent(String lectionId, Student deleteStudent) {
 		lectionDAO.deleteStudent(lectionId, deleteStudent);
 	}
-	
-	public int getQuantityOfStudents(String lectionID){
+
+	public int getQuantityOfStudents(String lectionID) {
 		return lectionDAO.getQuantityOfStudents(lectionID);
 	}
 
