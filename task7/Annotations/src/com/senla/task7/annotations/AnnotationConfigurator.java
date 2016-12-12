@@ -10,43 +10,44 @@ public class AnnotationConfigurator {
 
 	public static void configure(Object object) {
 
-		System.out.println(object.toString());
-		Class<?> class1 = object.getClass();
+		Class<?> class1 = (Class<?>) object;
 
-		for (Field field : class1.getDeclaredFields()) {
+		for (Field f : class1.getDeclaredFields()) {
 
-			if (field.isAnnotationPresent(ConfigProperty.class)) {
-				System.out.println("true");
-				ConfigProperty configProperty = field.getAnnotation(ConfigProperty.class);
+			if (f.isAnnotationPresent(ConfigProperty.class)) {
+				System.out.println("yes");
 
+				ConfigProperty configProperty = f.getAnnotation(ConfigProperty.class);
+				
 				// определим propertyName()
 				String propertyName = "";
 				if (configProperty.propertyName() == null || configProperty.propertyName().isEmpty()) {
-					propertyName = class1.getName().concat(".").concat(field.getName());
+					propertyName = class1.getName().concat(".").concat(f.getName());
 				}
 
-				// загрузим значение из проперти по configName()
+				// загрузим значение из проперти 
 				String value = PropertyLoader.getProperty(propertyName, configProperty.configName());
-				field.setAccessible(true);
-
+				
 				// разберёмся с типом
+				f.setAccessible(true);
 				if (configProperty.type().equals(String.class)) {
 					try {
-						field.set(object, value);
+						f.set(object, value);
 					} catch (IllegalArgumentException | IllegalAccessException e) {
 						logger.error(e.getMessage());
 					}
 
-				} else
+				} else {
 					System.out.println("true1");
-				if (configProperty.type().equals(int.class)) {
-					try {
-						field.set(object, Integer.parseInt(value));
-					} catch (IllegalArgumentException | IllegalAccessException e) {
-						logger.error(e.getMessage());
+					if (configProperty.type().equals(int.class)) {
+						try {
+							f.setInt(object, Integer.parseInt(value));
+						} catch (IllegalArgumentException | IllegalAccessException e) {
+							logger.error(e.getMessage());
+						}
 					}
 				}
-				field.setAccessible(false);
+				f.setAccessible(false);
 			}
 		}
 	}

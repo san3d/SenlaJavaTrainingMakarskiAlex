@@ -9,11 +9,11 @@ import com.senla.task5.coursebase.datamodel.Lecturer;
 import com.senla.task5.coursebase.datamodel.Section;
 import com.senla.task5.coursebase.datamodel.Student;
 import com.senla.task5.coursebase.service.interfaces.ICourseService;
-import com.senla.task7.annotations.ConfigProperty;
+import com.senla.task7.annotations.DependencyProperty;
 
 public class CourseService implements ICourseService {
 	
-	@ConfigProperty
+	@DependencyProperty(configName = "coursebase/config/dao.properties")
 	private ICourseDAO courseDAO;
 
 	public CourseService(ICourseDAO courseDAO) {

@@ -8,11 +8,11 @@ import com.senla.task5.coursebase.datamodel.Lecturer;
 import com.senla.task5.coursebase.datamodel.Section;
 import com.senla.task5.coursebase.datamodel.Student;
 import com.senla.task5.coursebase.service.interfaces.ILectionService;
-import com.senla.task7.annotations.ConfigProperty;
+import com.senla.task7.annotations.DependencyProperty;
 
 public class LectionService implements ILectionService {
 	
-	@ConfigProperty
+	@DependencyProperty(configName = "coursebase/config/dao.properties")
 	private ILectionDAO lectionDAO;
 
 	public ILectionDAO getLectionDAO() {

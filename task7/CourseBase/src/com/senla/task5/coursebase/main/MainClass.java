@@ -6,6 +6,8 @@ import com.senla.task5.coursebase.controller.*;
 //import com.senla.task5.coursebase.datamodel.*;
 //import com.senla.task5.coursebase.service.StringDateConverter;
 import com.senla.task7.annotations.AnnotationConfigurator;
+import com.senla.task7.annotations.ModifyngPrivateFields;
+import com.senla.task7.annotations.WithPrivateFinalField;
 import com.senla.task7.service.DependencyInjection;
 
 public class MainClass {
@@ -15,8 +17,17 @@ public class MainClass {
 		//Facade.getInstance(); 
 		//FacadeBuilder.buildFacade();
 		System.out.println("start");
-		System.out.println(Facade.getInstance().getMaxQuantityStudentsOnDay());
 		
+		//AnnotationConfigurator.configure(Facade.class);
+		ModifyngPrivateFields.run(Facade.class);
+		
+		//WithPrivateFinalField pf = new WithPrivateFinalField();
+		//ModifyngPrivateFields.run(pf);
+		
+		//DependencyInjection.load(Facade.class);
+		
+		System.out.println("getMaxQuantityStudentsOnDay()="+Facade.getInstance().getMaxQuantityStudentsOnDay());
+		System.out.println("end");
 		//facade.readCoursesFromFile("CoursesBase.txt");
 		//facade.getCourseStartDateComparator();
 

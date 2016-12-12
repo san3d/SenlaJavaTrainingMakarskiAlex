@@ -11,11 +11,9 @@ import java.lang.annotation.RetentionPolicy;
 @Inherited
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ConfigProperty {
+public @interface DependencyProperty {
 
-	String configName() default "config/config.properties";
+	String configName() default "config/service.properties";
 
 	String propertyName() default "";
-
-	Class<?> type() default String.class;
 }

@@ -23,7 +23,7 @@ public class PropertyLoader {
 
 		if (propHolder.get(field) == null) {
 			property = new Properties();
-			try (FileInputStream fis = new FileInputStream(new File(field))) {
+			try (FileInputStream fis = new FileInputStream(new File(path))) {
 				
 				property.load(fis);
 				propHolder.put(field, property);
@@ -35,4 +35,5 @@ public class PropertyLoader {
 		}
 		return property.getProperty(field);
 	}
+	
 }
