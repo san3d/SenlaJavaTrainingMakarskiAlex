@@ -1,27 +1,25 @@
-package com.senla.task7.annotations;
+package com.senla.task7.test;
 
 import java.lang.reflect.Field;
 
+import com.senla.task7.annotations.ConfigProperty;
+
 public class ModifyngPrivateFields {
 
-	/*public static void main(String[] args) throws Exception {
-		WithPrivateFinalField pf = new WithPrivateFinalField();
-		run(pf);
-	}*/
-
 	public static void run(Object object) {
-		Class<?> class1 = (Class<?>) object;
-		System.out.println("(Class<?>) object = "+(Class<?>) object);
+		Class<?> class1 = object.getClass();
+		//System.out.println("(Class<?>) object = "+(Class<?>) object);
 		for (Field f : class1.getDeclaredFields()) {
 			if (f.isAnnotationPresent(ConfigProperty.class)) {
 				//System.out.println("yes");
 				f.setAccessible(true);
 				try {
-					f.setInt(object, 47);
+					System.out.println(object);
+					f.setInt(object, new Integer(47));
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
-				System.out.println(object);
+				
 			}
 		}
 

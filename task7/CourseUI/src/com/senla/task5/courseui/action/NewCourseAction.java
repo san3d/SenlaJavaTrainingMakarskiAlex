@@ -9,8 +9,12 @@ public class NewCourseAction implements IAction {
 	private final static String COURSE_CREATED = "* New Course created!";
 
 	@Override
+	
 	public void process() {
-		Facade.getInstance().addCourse(AnyCourseCreator.createCourse());
+	
+		Facade facade = new Facade();
+		
+		facade.addCourse(AnyCourseCreator.createCourse());
 		Printer.print(COURSE_CREATED);
 	}
 }

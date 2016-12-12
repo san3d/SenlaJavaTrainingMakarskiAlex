@@ -25,20 +25,19 @@ import com.senla.task6.controller.Serializator;
 import com.senla.task7.annotations.AnnotationConfigurator;
 import com.senla.task7.annotations.ConfigProperty;
 import com.senla.task7.annotations.DependencyProperty;
-import com.senla.task7.annotations.ModifyngPrivateFields;
 import com.senla.task7.service.DependencyInjection;
 
 public class Facade {
 	@DependencyProperty
-	private ICourseService courseService;
+	private ICourseService courseService=null;
 	@DependencyProperty
-	private ILectionService lectionService;
+	private ILectionService lectionService=null;
 	@DependencyProperty
-	private ILecturerService lecturerService;
+	private ILecturerService lecturerService=null;
 	@DependencyProperty
-	private ISectionService sectionService;
+	private ISectionService sectionService=null;
 	@DependencyProperty
-	private IStudentService studentService;
+	private IStudentService studentService=null;
 
 	@ConfigProperty
 	private int maxQuantityStudentsOnDay = 1;
@@ -53,25 +52,22 @@ public class Facade {
 
 	private Logger logger = Logger.getLogger(Facade.class);
 
-	private Facade() {
-
-		//AnnotationConfigurator.configure(Facade.class);
-		//ModifyngPrivateFields.run(Facade.class);
-		//DependencyInjection.load(Facade.class);
-		
+	public Facade() {
+		AnnotationConfigurator.configure(this);
+		DependencyInjection.configure(this);
 	}
 	
 	public String toString() { 
         return "maxQuantityStudentsOnDay = " + maxQuantityStudentsOnDay; 
     } 
 
-	private static class SingletonHelper {
+	/*private static class SingletonHelper {
 		private static final Facade INSTANCE = new Facade();
 	}
 
 	public static Facade getInstance() {
 		return SingletonHelper.INSTANCE;
-	}
+	}*/
 
 	public void importCourses(String path) {
 		try {

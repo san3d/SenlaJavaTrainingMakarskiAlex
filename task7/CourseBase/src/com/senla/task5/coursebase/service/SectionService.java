@@ -11,9 +11,12 @@ import com.senla.task7.annotations.DependencyProperty;
 
 public class SectionService implements ISectionService {
 
-	@DependencyProperty(configName = "coursebase/config/dao.properties")
-	private ISectionDAO sectionDAO;
+	@DependencyProperty(configName = "config/dao.properties")
+	private ISectionDAO sectionDAO=null;
 
+	public SectionService(){
+	}
+	
 	public SectionService(ISectionDAO sectionDAO) {
 		this.sectionDAO = sectionDAO;
 	}

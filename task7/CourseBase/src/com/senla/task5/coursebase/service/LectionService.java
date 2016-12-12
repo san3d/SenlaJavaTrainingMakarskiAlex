@@ -11,12 +11,15 @@ import com.senla.task5.coursebase.service.interfaces.ILectionService;
 import com.senla.task7.annotations.DependencyProperty;
 
 public class LectionService implements ILectionService {
-	
-	@DependencyProperty(configName = "coursebase/config/dao.properties")
-	private ILectionDAO lectionDAO;
+
+	@DependencyProperty(configName = "config/dao.properties")
+	private ILectionDAO lectionDAO = null;
 
 	public ILectionDAO getLectionDAO() {
 		return lectionDAO;
+	}
+
+	public LectionService() {
 	}
 
 	public LectionService(ILectionDAO lectionDAO) {
