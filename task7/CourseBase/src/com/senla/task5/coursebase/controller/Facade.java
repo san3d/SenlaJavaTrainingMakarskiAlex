@@ -24,22 +24,24 @@ import com.senla.task6.controller.Aggregator;
 import com.senla.task6.controller.Serializator;
 import com.senla.task7.annotations.AnnotationConfigurator;
 import com.senla.task7.annotations.ConfigProperty;
+import com.senla.task7.annotations.DependencyProperty;
+import com.senla.task7.annotations.ModifyngPrivateFields;
 import com.senla.task7.service.DependencyInjection;
 
 public class Facade {
-	@ConfigProperty
+	@DependencyProperty
 	private ICourseService courseService;
-	@ConfigProperty
+	@DependencyProperty
 	private ILectionService lectionService;
-	@ConfigProperty
+	@DependencyProperty
 	private ILecturerService lecturerService;
-	@ConfigProperty
+	@DependencyProperty
 	private ISectionService sectionService;
-	@ConfigProperty
+	@DependencyProperty
 	private IStudentService studentService;
 
 	@ConfigProperty
-	private int maxQuantityStudentsOnDay = 0;
+	private int maxQuantityStudentsOnDay = 1;
 
 	public int getMaxQuantityStudentsOnDay() {
 		return maxQuantityStudentsOnDay;
@@ -53,10 +55,15 @@ public class Facade {
 
 	private Facade() {
 
-		AnnotationConfigurator.configure(Facade.class);
-		DependencyInjection.load(Facade.class);
+		//AnnotationConfigurator.configure(Facade.class);
+		//ModifyngPrivateFields.run(Facade.class);
+		//DependencyInjection.load(Facade.class);
 		
 	}
+	
+	public String toString() { 
+        return "maxQuantityStudentsOnDay = " + maxQuantityStudentsOnDay; 
+    } 
 
 	private static class SingletonHelper {
 		private static final Facade INSTANCE = new Facade();
@@ -196,7 +203,7 @@ public class Facade {
 	}
 
 	public boolean getResolutionMaxStudentOnLection(Lection lection) {
-		int a = getMaxQuantityStudentsOnDay();
+		int a = (getMaxQuantityStudentsOnDay());
 		int b = getQuantityOfStudentsOnLection(lection);
 		boolean c = false;
 		if (a >= b) {
