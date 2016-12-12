@@ -25,17 +25,18 @@ public class CloneCourseAction implements IAction {
 	public void process() {
 
 		Course course = null;
-		if (Facade.getInstance().getCourses().isEmpty()) {
+		Facade facade = new Facade();
+		if (facade.getCourses().isEmpty()) {
 			Printer.print(EMPTY_COURSES_BASE);
 			course = AnyCourseCreator.createCourse();
-			Facade.getInstance().addCourse(course);
+			facade.addCourse(course);
 
 		} else {
 			Printer.print(SELECT_COURSE);
 			scanner = new Scanner(System.in);
-			Printer.printCoursesList(Facade.getInstance().getCourses(), true);
+			Printer.printCoursesList(facade.getCourses(), true);
 			Integer numberCourse = scanner.nextInt() - 1;
-			course = Facade.getInstance().getCourses().get(numberCourse);
+			course = facade.getCourses().get(numberCourse);
 		}
 
 		logger.info("Данные до клонирования: " + course.getID() + course.getName() + " - startDate: "
@@ -45,7 +46,7 @@ public class CloneCourseAction implements IAction {
 		Course cloneCourse = null;
 
 		try {
-			cloneCourse = Facade.getInstance().cloneCourse(course);
+			cloneCourse = facade.cloneCourse(course);
 			cloneCourse.setName("C++");
 			cloneCourse.setID("111id-id1113");
 			cloneCourse.setStartDate(StringDateConverter.stringToDate("15.11.1992"));

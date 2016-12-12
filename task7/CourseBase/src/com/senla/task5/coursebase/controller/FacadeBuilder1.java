@@ -5,9 +5,9 @@ import com.senla.task5.coursebase.service.*;
 
 public class FacadeBuilder1 {
 
-	public static Facade buildFacade() {
+	public static void /*Facade*/ buildFacade() {
 
-		CourseDAO courseDAO = new CourseDAO();
+		/*CourseDAO courseDAO = new CourseDAO();
 		CourseService courseService = new CourseService(courseDAO);
 
 		LectionDAO lectionDAO = new LectionDAO();
@@ -29,7 +29,7 @@ public class FacadeBuilder1 {
 		facade.setSectionService(sectionService);
 		facade.setStudentService(studentService);
 
-		return facade;
+		return facade;*/
 	}
 
 }

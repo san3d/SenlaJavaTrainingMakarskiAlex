@@ -12,15 +12,18 @@ import com.senla.task5.coursebase.service.interfaces.ICourseService;
 import com.senla.task7.annotations.DependencyProperty;
 
 public class CourseService implements ICourseService {
-	
-	@DependencyProperty(configName = "coursebase/config/dao.properties")
-	private ICourseDAO courseDAO;
+
+	@DependencyProperty(configName = "config/dao.properties")
+	private ICourseDAO courseDAO = null;
+
+	public CourseService() {
+	}
 
 	public CourseService(ICourseDAO courseDAO) {
 		this.courseDAO = courseDAO;
 	}
-	
-	public Course cloneCourse(Course course) throws CloneNotSupportedException{
+
+	public Course cloneCourse(Course course) throws CloneNotSupportedException {
 		return courseDAO.cloneCourse(course);
 	}
 
@@ -39,7 +42,7 @@ public class CourseService implements ICourseService {
 	public void addCourse(Course newCourse) {
 		courseDAO.addCourse(newCourse);
 	}
-	
+
 	public void createCourse(String id, String name, Date startDate) {
 		courseDAO.createCourse(id, name, startDate);
 	}

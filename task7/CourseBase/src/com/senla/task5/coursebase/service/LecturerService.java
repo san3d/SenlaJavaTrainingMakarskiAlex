@@ -10,26 +10,29 @@ import com.senla.task5.coursebase.service.interfaces.ILecturerService;
 import com.senla.task7.annotations.DependencyProperty;
 
 public class LecturerService implements ILecturerService {
-	
-	@DependencyProperty(configName = "coursebase/config/dao.properties")
-	ILecturerDAO lecturerDAO;
-	
+
+	@DependencyProperty(configName = "config/dao.properties")
+	ILecturerDAO lecturerDAO = null;
+
+	public LecturerService() {
+	}
+
 	public LecturerService(ILecturerDAO lecturerDAO) {
-	    this.lecturerDAO = lecturerDAO;
-	  }
-	
-	public Lecturer getByID(String lecturerID){
+		this.lecturerDAO = lecturerDAO;
+	}
+
+	public Lecturer getByID(String lecturerID) {
 		return lecturerDAO.getByID(lecturerID);
 	}
-	
-	public List<Lecturer> getLecturers(){
+
+	public List<Lecturer> getLecturers() {
 		return lecturerDAO.getLecturers();
 	}
-	
+
 	public void setLecturers(List<Lecturer> lecturers) {
 		lecturerDAO.setLecturers(lecturers);
 	}
-	
+
 	public void addLecturer(Lecturer newLecturer) {
 		lecturerDAO.addLecturer(newLecturer);
 	}
@@ -37,11 +40,11 @@ public class LecturerService implements ILecturerService {
 	public void deleteLecturer(Lecturer deletedLecturer) {
 		lecturerDAO.deleteLecturer(deletedLecturer);
 	}
-	
+
 	public void addCourse(String lecturerID, Course course) {
 		lecturerDAO.addCourse(lecturerID, course);
 	}
-	
+
 	public void deleteCourse(String lecturerID, Course deletedCourse) {
 		lecturerDAO.deleteCourse(lecturerID, deletedCourse);
 	}
@@ -50,15 +53,15 @@ public class LecturerService implements ILecturerService {
 		return lecturerDAO;
 	}
 
-	public List<Lection> getLectionsOfLecturer(Lecturer lecturer){
+	public List<Lection> getLectionsOfLecturer(Lecturer lecturer) {
 		return lecturerDAO.getLectionsOfLecturer(lecturer);
 	}
-	
-	public void addLectionToLecturer(Lecturer lecturer, Lection lection){
+
+	public void addLectionToLecturer(Lecturer lecturer, Lection lection) {
 		lecturerDAO.addLectionToLecturer(lecturer, lection);
 	}
-	
-	public void deleteLectionInLecturer(String lecturerId, Lection deletedLection){
+
+	public void deleteLectionInLecturer(String lecturerId, Lection deletedLection) {
 		lecturerDAO.deleteLectionInLecturer(lecturerId, deletedLection);
 	}
 

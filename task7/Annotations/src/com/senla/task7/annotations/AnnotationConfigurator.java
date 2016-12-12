@@ -10,38 +10,41 @@ public class AnnotationConfigurator {
 
 	public static void configure(Object object) {
 
-		Class<?> class1 = (Class<?>) object;
+		Class<?> class1 = object.getClass();
 
 		for (Field f : class1.getDeclaredFields()) {
 
 			if (f.isAnnotationPresent(ConfigProperty.class)) {
-				System.out.println("yes");
+
+				String startType = f.getType().toString();
+				logger.info("startType =>" + startType);
 
 				ConfigProperty configProperty = f.getAnnotation(ConfigProperty.class);
-				
-				// определим propertyName()
+
+				// определим propertyName
 				String propertyName = "";
 				if (configProperty.propertyName() == null || configProperty.propertyName().isEmpty()) {
 					propertyName = class1.getName().concat(".").concat(f.getName());
 				}
 
-				// загрузим значение из проперти 
+				// загрузим значение из проперти
 				String value = PropertyLoader.getProperty(propertyName, configProperty.configName());
-				
+
 				// разберёмся с типом
 				f.setAccessible(true);
-				if (configProperty.type().equals(String.class)) {
+
+				if (startType.equals("int")) {
+					logger.info("inside int");
 					try {
-						f.set(object, value);
+						f.setInt(object, Integer.parseInt(value));
 					} catch (IllegalArgumentException | IllegalAccessException e) {
 						logger.error(e.getMessage());
 					}
-
 				} else {
-					System.out.println("true1");
-					if (configProperty.type().equals(int.class)) {
+					if (configProperty.type().equals(String.class)) {
+						logger.info("inside String");
 						try {
-							f.setInt(object, Integer.parseInt(value));
+							f.set(object, value);
 						} catch (IllegalArgumentException | IllegalAccessException e) {
 							logger.error(e.getMessage());
 						}
