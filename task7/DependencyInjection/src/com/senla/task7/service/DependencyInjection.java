@@ -13,7 +13,7 @@ public class DependencyInjection {
 	private static Logger logger = Logger.getLogger(DependencyInjection.class);
 	private static Map<String, Object> dHolder;
 
-	public static void configure(Object object) {
+	public static Object configure(Object object) {
 
 		Class<?> class1 = object.getClass();
 
@@ -21,62 +21,48 @@ public class DependencyInjection {
 			dHolder = new HashMap<>();
 		}
 
-		for (Field f : class1.getDeclaredFields()) {
+		Object object1 = null;
 
-			if (f.isAnnotationPresent(DependencyProperty.class)) {
+		if (dHolder.containsKey(object.getClass().getName())) {
+			logger.info("dHolder have " + object.getClass().getName());
+			return dHolder.get(object.getClass().getName());
+		} else {
+			for (Field f : class1.getDeclaredFields()) {
+				if (f.isAnnotationPresent(DependencyProperty.class)) {
 
-				DependencyProperty DependencyProperty = f.getAnnotation(DependencyProperty.class);
+					DependencyProperty DependencyProperty = f.getAnnotation(DependencyProperty.class);
 
-				String propertyName = "";
-				if (DependencyProperty.propertyName() == null || DependencyProperty.propertyName().isEmpty()) {
-					propertyName = f.getName();
-				}
-
-				Object object1 = null;
-				try {
-					Class<?> class2 = Class
-							.forName(PropertyLoader.getProperty(propertyName, DependencyProperty.configName()));
-					object1 = class2.newInstance();
-					dHolder.put(object.getClass().getName(), object1);
-					if (class2.getDeclaredFields().length != 0) {
-						configure(object1);
-						/*
-						 * {
-						 * 
-						 * for (Field ff : class2.getDeclaredFields()){ if
-						 * (ff.isAnnotationPresent(DependencyProperty.class)){
-						 * DependencyProperty DependencyProperty2 =
-						 * ff.getAnnotation(DependencyProperty.class); Object
-						 * object2 = null; try { Class<?> class3 =
-						 * Class.forName(PropertyLoader.getProperty(ff.getName()
-						 * , DependencyProperty2.configName())); object2 =
-						 * class3.newInstance();} catch (Exception e) {
-						 * e.printStackTrace(); } ff.setAccessible(true); try {
-						 * ff.set(object1, object2); } catch
-						 * (IllegalArgumentException | IllegalAccessException e)
-						 * { logger.error(e.getMessage()); }
-						 * ff.setAccessible(false);
-						 * 
-						 * } }
-						 * 
-						 * 
-						 * }
-						 */
-
+					String propertyName = "";
+					if (DependencyProperty.propertyName() == null || DependencyProperty.propertyName().isEmpty()) {
+						propertyName = f.getName();
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 
-				f.setAccessible(true);
-				try {
-					f.set(object, object1);
-				} catch (IllegalArgumentException | IllegalAccessException e) {
-					logger.error(e.getMessage());
-				}
-				f.setAccessible(false);
+					try {
+						Class<?> class2 = Class
+								.forName(PropertyLoader.getProperty(propertyName, DependencyProperty.configName()));
+						object1 = class2.newInstance();
+						dHolder.put(object.getClass().getName(), object1);
+						if (class2.getDeclaredFields().length != 0) {
+							logger.info("inside ".concat(object1.getClass().getName()));
+							configure(object1);
 
+						}
+					} catch (Exception e) {
+						logger.error(e.getMessage());
+					}
+
+					f.setAccessible(true);
+					try {
+						f.set(object, object1);
+					} catch (IllegalArgumentException | IllegalAccessException e) {
+						logger.error(e.getMessage());
+					}
+					f.setAccessible(false);
+
+				}
 			}
 		}
+		return object1;
+
 	}
 }

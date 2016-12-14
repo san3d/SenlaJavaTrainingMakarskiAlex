@@ -6,5 +6,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/PropertyWorker"/>
 	<classpathentry kind="lib" path="/CourseBase/libs/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="/CourseBase/libs/textFileWorker.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Annotations"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/DependencyInjection"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

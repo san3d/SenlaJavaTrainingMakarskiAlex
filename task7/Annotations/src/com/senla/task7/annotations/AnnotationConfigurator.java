@@ -17,7 +17,6 @@ public class AnnotationConfigurator {
 			if (f.isAnnotationPresent(ConfigProperty.class)) {
 
 				String startType = f.getType().toString();
-				logger.info("startType =>" + startType);
 
 				ConfigProperty configProperty = f.getAnnotation(ConfigProperty.class);
 
@@ -34,7 +33,6 @@ public class AnnotationConfigurator {
 				f.setAccessible(true);
 
 				if (startType.equals("int")) {
-					logger.info("inside int");
 					try {
 						f.setInt(object, Integer.parseInt(value));
 					} catch (IllegalArgumentException | IllegalAccessException e) {
@@ -42,7 +40,7 @@ public class AnnotationConfigurator {
 					}
 				} else {
 					if (configProperty.type().equals(String.class)) {
-						logger.info("inside String");
+
 						try {
 							f.set(object, value);
 						} catch (IllegalArgumentException | IllegalAccessException e) {

@@ -12,7 +12,7 @@ import com.senla.task7.annotations.DependencyProperty;
 public class LecturerService implements ILecturerService {
 
 	@DependencyProperty(configName = "config/dao.properties")
-	ILecturerDAO lecturerDAO = null;
+	ILecturerDAO lecturerDAO;
 
 	public LecturerService() {
 	}

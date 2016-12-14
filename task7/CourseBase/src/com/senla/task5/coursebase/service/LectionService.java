@@ -13,7 +13,7 @@ import com.senla.task7.annotations.DependencyProperty;
 public class LectionService implements ILectionService {
 
 	@DependencyProperty(configName = "config/dao.properties")
-	private ILectionDAO lectionDAO = null;
+	private ILectionDAO lectionDAO;
 
 	public ILectionDAO getLectionDAO() {
 		return lectionDAO;

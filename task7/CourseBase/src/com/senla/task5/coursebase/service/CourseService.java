@@ -14,7 +14,7 @@ import com.senla.task7.annotations.DependencyProperty;
 public class CourseService implements ICourseService {
 
 	@DependencyProperty(configName = "config/dao.properties")
-	private ICourseDAO courseDAO = null;
+	private ICourseDAO courseDAO;
 
 	public CourseService() {
 	}
