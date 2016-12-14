@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.senla.task5.coursebase.controller.interfaces.IFacade;
 import com.senla.task5.coursebase.datamodel.Course;
 import com.senla.task5.coursebase.datamodel.Lection;
 import com.senla.task5.coursebase.datamodel.Lecturer;
@@ -27,25 +28,25 @@ import com.senla.task7.annotations.ConfigProperty;
 import com.senla.task7.annotations.DependencyProperty;
 import com.senla.task7.service.DependencyInjection;
 
-public class Facade {
+public class Facade implements IFacade {
 	@DependencyProperty
-	private ICourseService courseService=null;
+	private ICourseService courseService;
 	@DependencyProperty
-	private ILectionService lectionService=null;
+	private ILectionService lectionService;
 	@DependencyProperty
-	private ILecturerService lecturerService=null;
+	private ILecturerService lecturerService;
 	@DependencyProperty
-	private ISectionService sectionService=null;
+	private ISectionService sectionService;
 	@DependencyProperty
-	private IStudentService studentService=null;
+	private IStudentService studentService;
 
 	@ConfigProperty
-	private int maxQuantityStudentsOnDay = 1;
+	private int maxQuantityStudentsOnDay;
 
 	public int getMaxQuantityStudentsOnDay() {
 		return maxQuantityStudentsOnDay;
 	}
-	
+
 	public void setMaxQuantityStudentsOnDay(int maxQuantityStudentsOnDay) {
 		this.maxQuantityStudentsOnDay = maxQuantityStudentsOnDay;
 	}
@@ -56,18 +57,17 @@ public class Facade {
 		AnnotationConfigurator.configure(this);
 		DependencyInjection.configure(this);
 	}
-	
-	public String toString() { 
-        return "maxQuantityStudentsOnDay = " + maxQuantityStudentsOnDay; 
-    } 
 
-	/*private static class SingletonHelper {
-		private static final Facade INSTANCE = new Facade();
+	public String toString() {
+		return "maxQuantityStudentsOnDay = " + maxQuantityStudentsOnDay;
 	}
 
-	public static Facade getInstance() {
-		return SingletonHelper.INSTANCE;
-	}*/
+	/*
+	 * private static class SingletonHelper { private static final Facade
+	 * INSTANCE = new Facade(); }
+	 * 
+	 * public static Facade getInstance() { return SingletonHelper.INSTANCE; }
+	 */
 
 	public void importCourses(String path) {
 		try {

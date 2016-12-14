@@ -2,11 +2,12 @@ package com.senla.task5.coursebase.main;
 
 import java.text.ParseException;
 
-import com.senla.task5.coursebase.controller.*;
+import com.senla.task5.coursebase.controller.Facade;
+import com.senla.task5.coursebase.controller.interfaces.IFacade;
 //import com.senla.task5.coursebase.datamodel.*;
 //import com.senla.task5.coursebase.service.StringDateConverter;
-import com.senla.task7.annotations.AnnotationConfigurator;
-import com.senla.task7.service.DependencyInjection;
+//import com.senla.task7.annotations.AnnotationConfigurator;
+//import com.senla.task7.service.DependencyInjection;
 
 public class MainClass {
 
@@ -20,7 +21,7 @@ public class MainClass {
 		//DependencyInjection.load(new Facade());
 		//DependencyAnnotationConfigurator.configure(new Facade());
 		
-		Facade facade = new Facade();
+		IFacade facade = new Facade();
 		
 		System.out.println("getMaxQuantityStudentsOnDay()="+facade.getMaxQuantityStudentsOnDay());
 		System.out.println("end");

@@ -12,7 +12,7 @@ import com.senla.task7.annotations.DependencyProperty;
 public class StudentService implements IStudentService {
 
 	@DependencyProperty(configName = "config/dao.properties")
-	IStudentDAO studentDAO = null;
+	IStudentDAO studentDAO;
 
 	public StudentService() {
 	}

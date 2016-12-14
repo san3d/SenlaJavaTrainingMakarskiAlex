@@ -3,6 +3,7 @@ package com.senla.task5.courseui.action;
 import java.util.Scanner;
 
 import com.senla.task5.coursebase.controller.Facade;
+import com.senla.task5.coursebase.controller.interfaces.IFacade;
 import com.senla.task5.coursebase.datamodel.Lection;
 import com.senla.task5.coursebase.datamodel.Student;
 import com.senla.task5.courseui.action.interfaces.IAction;
@@ -19,60 +20,59 @@ public class ScheduleAction implements IAction {
 	private final static String QUANTITY_STUDENTS_IS_CROWDED = " оличество студентов превышает допустимое!";
 	private final static String STUDENT_INCLUDED = "—тудент успешно добавлен!";
 	private final static String STUDENT_NOT_INCLUDED = "—тудент не добавлен!";
-	
-	
+	private IFacade facade;
+
 	public void process() {
+		facade = new Facade();
 
 		Scanner scanner;
 
-	/*
-		//проверка выполнени€
-		Lection lection1 = new Lection("lec1", StringDateConverter.stringToDate("01.01.2016"));
-		Facade.getInstance().addLection(lection1);
-		Student student1 = new Student("firstName1", "lastName1");
-		Facade.getInstance().addStudent(student1);
-		Student student2 = new Student("firstName2", "lastName2");
-		Facade.getInstance().addStudent(student2);
-		Student student3 = new Student("firstName3", "lastName3");
-		Facade.getInstance().addStudent(student3);
-		Facade.getInstance().getLectionService().addStudent(lection1.getId(), student1);
-		Facade.getInstance().getLectionService().addStudent(lection1.getId(), student2);
-		Facade.getInstance().getLectionService().addStudent(lection1.getId(), student3);
-	*/
-		
+		/*
+		 * //проверка выполнени€ Lection lection1 = new Lection("lec1",
+		 * StringDateConverter.stringToDate("01.01.2016"));
+		 * facade.addLection(lection1); Student student1 = new
+		 * Student("firstName1", "lastName1"); facade.addStudent(student1);
+		 * Student student2 = new Student("firstName2", "lastName2");
+		 * facade.addStudent(student2); Student student3 = new
+		 * Student("firstName3", "lastName3"); facade.addStudent(student3);
+		 * facade.getLectionService().addStudent(lection1.getId(), student1);
+		 * facade.getLectionService().addStudent(lection1.getId(), student2);
+		 * facade.getLectionService().addStudent(lection1.getId(), student3);
+		 */
+
 		block: {
 
 			Lection lection = null;
-			if (Facade.getInstance().getLections().isEmpty()) {
+			if (facade.getLections().isEmpty()) {
 				Printer.print(EMPTY_LECTIONS_BASE);
 				lection = AnyLectionCreator.createLection();
-				Facade.getInstance().addLection(lection);
+				facade.addLection(lection);
 			} else {
 				Printer.print(SELECT_LECTION);
 				scanner = new Scanner(System.in);
-				Printer.printLectionsList(Facade.getInstance().getLections(), true);
+				Printer.printLectionsList(facade.getLections(), true);
 				Integer numberLection = scanner.nextInt() - 1;
-				lection = Facade.getInstance().getLections().get(numberLection);
-				if (Facade.getInstance().getResolutionMaxStudentOnLection(lection) == false) {
+				lection = facade.getLections().get(numberLection);
+				if (facade.getResolutionMaxStudentOnLection(lection) == false) {
 					Printer.print(QUANTITY_STUDENTS_IS_CROWDED);
 					break block;
 				}
 			}
 
 			Student student = null;
-			if (Facade.getInstance().getStudents().isEmpty()) {
+			if (facade.getStudents().isEmpty()) {
 				Printer.print(EMPTY_STUDENTS_BASE);
 				student = AnyStudentCreator.createStudent();
-				Facade.getInstance().addStudent(student);
+				facade.addStudent(student);
 			} else {
 				Printer.print(SELECT_STUDENT);
 				scanner = new Scanner(System.in);
-				Printer.printStudentsList(Facade.getInstance().getStudents(), true);
+				Printer.printStudentsList(facade.getStudents(), true);
 				Integer numberStudent = scanner.nextInt() - 1;
-				student = Facade.getInstance().getStudents().get(numberStudent);
+				student = facade.getStudents().get(numberStudent);
 			}
-			
-			if (Facade.getInstance().addStudentOnLection(student, lection)) {
+
+			if (facade.addStudentOnLection(student, lection)) {
 				Printer.print(STUDENT_INCLUDED);
 			} else {
 				Printer.print(STUDENT_NOT_INCLUDED);

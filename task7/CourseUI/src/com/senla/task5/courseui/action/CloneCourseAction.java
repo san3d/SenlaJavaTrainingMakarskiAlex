@@ -5,6 +5,7 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import com.senla.task5.coursebase.controller.Facade;
+import com.senla.task5.coursebase.controller.interfaces.IFacade;
 import com.senla.task5.coursebase.datamodel.Course;
 import com.senla.task5.coursebase.service.StringDateConverter;
 import com.senla.task5.courseui.action.interfaces.IAction;
@@ -17,15 +18,15 @@ public class CloneCourseAction implements IAction {
 	private final static String SELECT_COURSE = "Выберите курс для клонирования : ";
 	private final static String NO_CLONING = "Объект не может быть клонирован!";
 	private final static String CLONED = "Объект клонирован!";
-
+	private IFacade facade;
 
 	Scanner scanner;
 	private Logger logger = Logger.getLogger(CloneCourseAction.class);
 
 	public void process() {
-
+		facade = new Facade();
 		Course course = null;
-		Facade facade = new Facade();
+
 		if (facade.getCourses().isEmpty()) {
 			Printer.print(EMPTY_COURSES_BASE);
 			course = AnyCourseCreator.createCourse();

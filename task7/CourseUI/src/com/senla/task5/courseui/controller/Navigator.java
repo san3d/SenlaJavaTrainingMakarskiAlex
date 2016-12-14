@@ -28,9 +28,6 @@ public class Navigator {
 	private Scanner scanner;
 	private Logger logger = Logger.getLogger(Navigator.class);
 
-	@SuppressWarnings("unused")
-	//private Facade facade = FacadeBuilder.buildFacade();
-
 	public void startMenu() {
 
 		List<IMenu> rootMenu = menuBuilder.getMenus();
