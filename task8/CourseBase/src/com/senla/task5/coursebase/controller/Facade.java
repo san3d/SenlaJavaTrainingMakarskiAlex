@@ -26,6 +26,7 @@ import com.senla.task6.controller.Serializator;
 import com.senla.task7.annotations.AnnotationConfigurator;
 import com.senla.task7.annotations.ConfigProperty;
 import com.senla.task7.annotations.DependencyProperty;
+import com.senla.task7.service.DependencyInjection;
 
 public class Facade implements IFacade {
 	@DependencyProperty
@@ -54,6 +55,7 @@ public class Facade implements IFacade {
 
 	public Facade() {
 		AnnotationConfigurator.configure(this);
+		DependencyInjection.configure(this);
 	}
 
 	public String toString() {
@@ -120,6 +122,10 @@ public class Facade implements IFacade {
 		return courseService.getCourses();
 	}
 
+	public int getCoursesSize() {
+		return getCourses().size();
+	}
+
 	public void setCourses(List<Course> courses) {
 		courseService.setCourses(courses);
 	}
@@ -140,6 +146,10 @@ public class Facade implements IFacade {
 		return lecturerService.getLecturers();
 	}
 
+	public int getLecturersSize() {
+		return getLecturers().size();
+	}
+
 	public void setLecturers(List<Lecturer> lecturers) {
 		lecturerService.setLecturers(lecturers);
 	}
@@ -156,6 +166,10 @@ public class Facade implements IFacade {
 		return sectionService.getSections();
 	}
 
+	public int getSectionsSize() {
+		return getSections().size();
+	}
+
 	public void setSections(List<Section> sections) {
 		sectionService.setSections(sections);
 	}
@@ -167,12 +181,14 @@ public class Facade implements IFacade {
 	public void deleteSection(Section deletedSection) {
 		sectionService.deleteSection(deletedSection);
 	}
-	
-	
+
 	public List<Student> getStudents() {
-		synchronized (new Object())  {
 		return studentService.getStudents();
-	}}
+	}
+
+	public int getStudentsSize() {
+		return getStudents().size();
+	}
 
 	public void setStudents(List<Student> students) {
 		studentService.setStudents(students);
@@ -207,6 +223,10 @@ public class Facade implements IFacade {
 
 	public List<Lection> getLections() {
 		return lectionService.getLections();
+	}
+
+	public int getLectionsSize() {
+		return getLections().size();
 	}
 
 	public void setLections(List<Lection> lections) {

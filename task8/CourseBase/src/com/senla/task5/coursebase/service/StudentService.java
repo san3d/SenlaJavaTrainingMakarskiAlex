@@ -8,6 +8,7 @@ import com.senla.task5.coursebase.datamodel.Lection;
 import com.senla.task5.coursebase.datamodel.Student;
 import com.senla.task5.coursebase.service.interfaces.IStudentService;
 import com.senla.task7.annotations.DependencyProperty;
+import com.senla.task7.service.DependencyInjection;
 
 public class StudentService implements IStudentService {
 
@@ -15,6 +16,7 @@ public class StudentService implements IStudentService {
 	IStudentDAO studentDAO;
 
 	public StudentService() {
+		DependencyInjection.configure(this);
 	}
 
 	public StudentService(IStudentDAO studentDAO) {

@@ -8,6 +8,7 @@ import com.senla.task5.coursebase.datamodel.Lection;
 import com.senla.task5.coursebase.datamodel.Lecturer;
 import com.senla.task5.coursebase.service.interfaces.ILecturerService;
 import com.senla.task7.annotations.DependencyProperty;
+import com.senla.task7.service.DependencyInjection;
 
 public class LecturerService implements ILecturerService {
 
@@ -15,6 +16,7 @@ public class LecturerService implements ILecturerService {
 	ILecturerDAO lecturerDAO;
 
 	public LecturerService() {
+		DependencyInjection.configure(this);
 	}
 
 	public LecturerService(ILecturerDAO lecturerDAO) {

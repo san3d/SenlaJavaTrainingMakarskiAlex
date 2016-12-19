@@ -17,13 +17,13 @@ import com.senla.task5.courseui.action.CoursesImportAction;
 import com.senla.task5.courseui.action.DeSerializationAction;
 import com.senla.task5.courseui.menu.Menu;
 import com.senla.task5.courseui.menu.interfaces.IMenu;
+import com.senla.task8.service.RequestHandler;
 
 public class MenuBuilder {
 
 	private List<IMenu> menus;
 
-	public MenuBuilder() {
-		
+	public MenuBuilder(RequestHandler requestHandler) {
 		
 		menus = new ArrayList<IMenu>();
 		IMenu menuCourses = new Menu("Work with Courses", 1);
@@ -46,7 +46,7 @@ public class MenuBuilder {
 		menuLecturers.addMenu(menuLecturers03);
 
 		IMenu task6 = new Menu("TASK 6", 3);
-		IMenu task61 = new Menu("Прочитать property и добавить студентов на лекцию", 1, new ScheduleAction());
+		IMenu task61 = new Menu("Прочитать property и добавить студентов на лекцию", 1, new NewLecturerAction());//new ScheduleAction());
 		IMenu task62 = new Menu("Клонировать курс", 2, new CloneCourseAction());
 		IMenu task63 = new Menu("Serialize", 3, new SerializationAction());
 		IMenu task64 = new Menu("DeSerialize", 4, new DeSerializationAction());
@@ -61,7 +61,7 @@ public class MenuBuilder {
 		task6.addMenu(task66);
 		task6.addMenu(task67);
 
-		IMenu calculate = new Menu("Посчитать все сущности", 4, new TotalCalculationAction());
+		IMenu calculate = new Menu("Посчитать все сущности", 4, new TotalCalculationAction(requestHandler));
 		IMenu menuExit = new Menu("Exit", 5);
 		menus.add(menuCourses);
 		menus.add(menuLecturers);

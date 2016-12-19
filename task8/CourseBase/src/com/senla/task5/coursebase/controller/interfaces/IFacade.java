@@ -20,140 +20,150 @@ public interface IFacade {
 
 	int getMaxQuantityStudentsOnDay();
 
-	public void setMaxQuantityStudentsOnDay(int maxQuantityStudentsOnDay);
+	void setMaxQuantityStudentsOnDay(int maxQuantityStudentsOnDay);
 
-	public String toString();
+	String toString();
 
-	public void importCourses(String path);
+	void importCourses(String path);
 
-	public void serialize() throws IOException;
+	void serialize() throws IOException;
 
-	public void deserialize() throws ClassNotFoundException, IOException;
+	void deserialize() throws ClassNotFoundException, IOException;
 
-	public Course cloneCourse(Course course) throws CloneNotSupportedException;
+	Course cloneCourse(Course course) throws CloneNotSupportedException;
 
-	public List<Course> getCourses();
+	List<Course> getCourses();
 
-	public void setCourses(List<Course> courses);
+	int getCoursesSize();
 
-	public void addCourse(Course newCourse);
+	void setCourses(List<Course> courses);
 
-	public void createCourse(String id, String name, Date startDate);
+	void addCourse(Course newCourse);
 
-	public void deleteCourse(Course deletedCourse);
+	void createCourse(String id, String name, Date startDate);
 
-	public List<Lecturer> getLecturers();
+	void deleteCourse(Course deletedCourse);
 
-	public void setLecturers(List<Lecturer> lecturers);
+	List<Lecturer> getLecturers();
 
-	public void addLecturer(Lecturer newLecturer);
+	int getLecturersSize();
 
-	public void deleteLecturer(Lecturer deletedLecturer);
+	void setLecturers(List<Lecturer> lecturers);
 
-	public List<Section> getSections();
+	void addLecturer(Lecturer newLecturer);
 
-	public void setSections(List<Section> sections);
+	void deleteLecturer(Lecturer deletedLecturer);
 
-	public void addSection(Section newSection);
+	List<Section> getSections();
 
-	public void deleteSection(Section deletedSection);
+	int getSectionsSize();
 
-	public List<Student> getStudents();
+	void setSections(List<Section> sections);
 
-	public void setStudents(List<Student> students);
+	void addSection(Section newSection);
 
-	public void addStudent(Student newStudent);
+	void deleteSection(Section deletedSection);
+
+	List<Student> getStudents();
+
+	int getStudentsSize();
+
+	void setStudents(List<Student> students);
+
+	void addStudent(Student newStudent);
 
 	boolean addStudentOnLection(Student student, Lection lection);
 
 	boolean getResolutionMaxStudentOnLection(Lection lection);
 
-	public void deleteStudent(Student deletedStudent);
+	void deleteStudent(Student deletedStudent);
 
-	public List<Lection> getLections();
+	List<Lection> getLections();
 
-	public void setLections(List<Lection> lections);
+	int getLectionsSize();
 
-	public void addLection(Lection newLection);
+	void setLections(List<Lection> lections);
 
-	public void deleteLection(Lection deletedLection);
+	void addLection(Lection newLection);
 
-	public int getQuantityOfStudentsOnLection(Lection lection);
+	void deleteLection(Lection deletedLection);
 
-	public void mergeCourseLecturer(Course course, Lecturer lecturer);
+	int getQuantityOfStudentsOnLection(Lection lection);
 
-	public void splitCourseLecturer(Course course, Lecturer lecturer);
+	void mergeCourseLecturer(Course course, Lecturer lecturer);
 
-	public void mergeCourseStudent(Course course, Student student);
+	void splitCourseLecturer(Course course, Lecturer lecturer);
 
-	public void splitCourseStudent(Course course, Student student);
+	void mergeCourseStudent(Course course, Student student);
 
-	public void mergeCourseSection(Course course, Section section);
+	void splitCourseStudent(Course course, Student student);
 
-	public void splitCourseSection(Course course, Section section);
+	void mergeCourseSection(Course course, Section section);
 
-	public void mergeSectionLection(Section section, Lection lection);
+	void splitCourseSection(Course course, Section section);
 
-	public void splitSectionLection(Section section, Lection lection);
+	void mergeSectionLection(Section section, Lection lection);
 
-	public void printFullCourseInfo(Course course) throws ParseException;
+	void splitSectionLection(Section section, Lection lection);
 
-	public List<Lecturer> printLecturersInCourse(Course course);
+	void printFullCourseInfo(Course course) throws ParseException;
 
-	public List<Student> printStudentsInCourse(Course course);
+	List<Lecturer> printLecturersInCourse(Course course);
 
-	public void printSectionsInCourse(Course course);
+	List<Student> printStudentsInCourse(Course course);
 
-	public List<Lection> printLectionsInSection(Section section);
+	void printSectionsInCourse(Course course);
 
-	public List<Lection> printAllLectionsInCourse(Course course);
+	List<Lection> printLectionsInSection(Section section);
+
+	List<Lection> printAllLectionsInCourse(Course course);
 
 	ICourseService getCourseService();
 
-	public void setCourseService(ICourseService courseService);
+	void setCourseService(ICourseService courseService);
 
 	ILectionService getLectionService();
 
-	public void setLectionService(ILectionService lectionService);
+	void setLectionService(ILectionService lectionService);
 
 	ILecturerService getLecturerService();
 
-	public void setLecturerService(ILecturerService lecturerService);
+	void setLecturerService(ILecturerService lecturerService);
 
 	ISectionService getSectionService();
 
-	public void setSectionService(ISectionService sectionService);
+	void setSectionService(ISectionService sectionService);
 
 	IStudentService getStudentService();
 
-	public void setStudentService(IStudentService studentService);
+	void setStudentService(IStudentService studentService);
 
-	public void readCoursesFromFile(String path) throws ParseException;
+	void readCoursesFromFile(String path) throws ParseException;
 
-	public void writeCoursesToFile(List<Course> courses, String path);
+	void writeCoursesToFile(List<Course> courses, String path);
 
-	public void getCourseStartDateComparator() throws ParseException;
+	void getCourseStartDateComparator() throws ParseException;
 
-	public void getCourseAfterDateComparator(Date date) throws ParseException;
+	void getCourseAfterDateComparator(Date date) throws ParseException;
 
-	public void getCourseRunNowDateComparator() throws ParseException;
+	void getCourseRunNowDateComparator() throws ParseException;
 
-	public void getCourseBetweenDateComparator(Date date1, Date date2) throws ParseException;
+	void getCourseBetweenDateComparator(Date date1, Date date2) throws ParseException;
 
-	public void getCourseStudentsQuantityComparator() throws ParseException;
+	void getCourseStudentsQuantityComparator() throws ParseException;
 
-	public void getCourseAlphabetComparator() throws ParseException;
+	void getCourseAlphabetComparator() throws ParseException;
 
-	public void getCourseLectionsAlphabetComparator(Course course) throws ParseException;
+	void getCourseLectionsAlphabetComparator(Course course) throws ParseException;
 
-	public void getLectionAlphabetComparator();
+	void getLectionAlphabetComparator();
 
-	public void getLectionDateComparator() throws ParseException;
+	void getLectionDateComparator() throws ParseException;
 
-	public void getLectionOnDateComparator(Date date) throws ParseException;
+	void getLectionOnDateComparator(Date date) throws ParseException;
 
-	public void getLecturerAlphabetComparator() throws ParseException;
+	void getLecturerAlphabetComparator() throws ParseException;
 
-	public void getLecturerCourseQuantityComparator() throws ParseException;
+	void getLecturerCourseQuantityComparator() throws ParseException;
 
 }
