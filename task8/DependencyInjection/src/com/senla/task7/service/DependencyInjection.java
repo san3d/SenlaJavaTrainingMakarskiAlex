@@ -8,12 +8,12 @@ import org.apache.log4j.Logger;
 import com.senla.task6.prop.PropertyLoader;
 import com.senla.task7.annotations.DependencyProperty;
 
-public class DependencyInjection {
+public class DependencyInjection extends Cache {
 
 	private static Logger logger = Logger.getLogger(DependencyInjection.class);
 	private static Map<String, Object> dHolder;
 
-	public static Object configure(Object object) {
+	public static void configure(Object object) {
 
 		Class<?> class1 = object.getClass();
 
@@ -23,67 +23,63 @@ public class DependencyInjection {
 
 		Object object1 = null;
 
-		if (dHolder.containsKey(object.getClass().getName())) {
-			logger.info("dHolder have " + object.getClass().getName());
-			return dHolder.get(object.getClass().getName());
-		} else {
-			for (Field f : class1.getDeclaredFields()) {
-				if (f.isAnnotationPresent(DependencyProperty.class)) {
+		for (Field f : class1.getDeclaredFields()) {
+			if (f.isAnnotationPresent(DependencyProperty.class)) {
 
-					DependencyProperty DependencyProperty = f.getAnnotation(DependencyProperty.class);
+				DependencyProperty DependencyProperty = f.getAnnotation(DependencyProperty.class);
 
-					String propertyName = "";
-					if (DependencyProperty.propertyName() == null || DependencyProperty.propertyName().isEmpty()) {
-						propertyName = f.getName();
-					}
+				String propertyName = "";
+				if (DependencyProperty.propertyName() == null || DependencyProperty.propertyName().isEmpty()) {
+					propertyName = f.getName();
+				}
 
+				if (dHolder.containsKey(f.getType().getName())) {
+					logger.info("dHolder have " + f.getType().getName());
+				} else {
 					try {
+
 						Class<?> class2 = Class
 								.forName(PropertyLoader.getProperty(propertyName, DependencyProperty.configName()));
 						object1 = class2.newInstance();
-						//logger.info("get field type ----> "+f.getType().getName());
-						dHolder.put(f.getType().getName(), object1);
-						//logger.info("key = "+f.getType().getName() +"----> value = "+object1.getClass().getName());
-						if (class2.getDeclaredFields().length != 0) {
-							//logger.info("inside ".concat(object1.getClass().getName()));
-							configure(object1);
 
-						}
+						dHolder.put(f.getType().getName(), object1);
+
+						/*
+						 * {if (class2.getDeclaredFields().length != 0) {
+						 * configure(object1); }}
+						 */
 					} catch (Exception e) {
 						logger.error(e.getMessage());
 					}
-
-					f.setAccessible(true);
-					try {
-						f.set(object, object1);
-					} catch (IllegalArgumentException | IllegalAccessException e) {
-						logger.error(e.getMessage());
-					}
-					f.setAccessible(false);
-
 				}
+
+				f.setAccessible(true);
+				try {
+					f.set(object, object1);
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					logger.error(e.getMessage());
+				}
+				f.setAccessible(false);
 			}
 		}
-		return object1;
-
 	}
-	
+
 	@SuppressWarnings("rawtypes")
-	public static Object getObject(Class cl){
+	public static Object getObject(Class cl) {
 		Object object = null;
 		if (dHolder.containsKey(cl.getName())) {
 			logger.info("dHolder return " + cl.getName());
-			object = dHolder.get(cl.getName());}
-		else{
+			object = dHolder.get(cl.getName());
+		} else {
 			logger.info("dHolder have not " + cl.getName());
 		}
 		return object;
 	}
-	
-	public static void printHolder(){
-		for (Map.Entry<String, Object> m: dHolder.entrySet()){
+
+	public static void printHolder() {
+		for (Map.Entry<String, Object> m : dHolder.entrySet()) {
 			logger.info(m.getKey() + "---" + m.getValue().getClass().getName());
 		}
 	}
-	
+
 }

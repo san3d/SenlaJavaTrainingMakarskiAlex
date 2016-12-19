@@ -8,6 +8,7 @@ import com.senla.task5.coursebase.datamodel.Lection;
 import com.senla.task5.coursebase.datamodel.Section;
 import com.senla.task5.coursebase.service.interfaces.ISectionService;
 import com.senla.task7.annotations.DependencyProperty;
+import com.senla.task7.service.DependencyInjection;
 
 public class SectionService implements ISectionService {
 
@@ -15,6 +16,7 @@ public class SectionService implements ISectionService {
 	private ISectionDAO sectionDAO;
 
 	public SectionService(){
+		DependencyInjection.configure(this);
 	}
 	
 	public SectionService(ISectionDAO sectionDAO) {

@@ -6,26 +6,31 @@ import java.net.Socket;
 
 import org.apache.log4j.Logger;
 
-import com.senla.task5.courseui.main.LoaderUI;
+import com.senla.task5.courseui.controller.Navigator;
+
+import com.senla.task8.service.RequestHandler;
 
 public class Client {
 
 	private static Logger logger = Logger.getLogger(Client.class);
 
 	public static void main(String[] args) {
-		Socket socket = null;
+
+		Socket s = null;
 
 		try {
-			socket = new Socket(InetAddress.getLocalHost(), 8071);
-			LoaderUI.start();
+			s = new Socket(InetAddress.getLocalHost(), 8071);
+			RequestHandler requestHandler = new RequestHandler(s);
+			Navigator.getInstance().startMenu(requestHandler);
 
 		} catch (IOException e) {
 			logger.error(e.getMessage());
+
 		} finally {
 
-			if (socket != null) {
+			if (s != null) {
 				try {
-					socket.close();
+					s.close();
 				} catch (IOException e) {
 					logger.error(e.getMessage());
 				}

@@ -4,35 +4,37 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-
 import org.apache.log4j.Logger;
+
+import com.senla.task8.service.DataMethod;
+import com.senla.task8.service.InvokeMethod;
 
 public class ServerThread extends Thread {
 
-	private static Logger logger = Logger.getLogger(Thread.class);
-
-	private ObjectInputStream in;
-	private ObjectOutputStream out;
+	private ObjectInputStream ois;
+	private ObjectOutputStream oos;
 	private InvokeMethod invokeMethod = new InvokeMethod();
+	private static Logger logger = Logger.getLogger(ServerThread.class);
 
 	public ServerThread(Socket s) throws IOException {
-		in = new ObjectInputStream(s.getInputStream());
-		out = new ObjectOutputStream(s.getOutputStream());
+		oos = new ObjectOutputStream(s.getOutputStream());
+		ois = new ObjectInputStream(s.getInputStream());
 	}
 
+	@Override
 	public void run() {
+
 		try {
 			while (true) {
-				if (in.readObject() != null) {
-					Object answer = invokeMethod.getAnswer(in.readObject());
-					out.writeObject(answer);
-					out.flush();
+				DataMethod dataMethod = (DataMethod) ois.readObject();
+				if (dataMethod != null) {
+					Object answer = invokeMethod.getAnswer(dataMethod);
+					oos.writeObject(answer);
+					oos.flush();
 				}
 			}
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-			logger.info("Disconnect");
-		} catch (ClassNotFoundException e) {
+
+		} catch (IOException | ClassNotFoundException e) {
 			logger.error(e.getMessage());
 		} finally {
 			disconnect();
@@ -41,16 +43,17 @@ public class ServerThread extends Thread {
 
 	public void disconnect() {
 		try {
-			if (out != null) {
-				out.close();
+			if (oos != null) {
+				oos.close();
 			}
-			if (in != null) {
-				in.close();
+			if (ois != null) {
+				ois.close();
 			}
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		} finally {
 			this.interrupt();
 		}
+
 	}
 }

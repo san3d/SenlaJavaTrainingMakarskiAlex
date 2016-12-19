@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 //import com.senla.task5.coursebase.controller.Facade;
 //import com.senla.task5.coursebase.controller.FacadeBuilder;
 import com.senla.task5.courseui.menu.interfaces.IMenu;
+import com.senla.task8.service.RequestHandler;
 
 public class Navigator {
 
@@ -24,12 +25,13 @@ public class Navigator {
 	}
 
 	private final static String EXIT_ACTION = "* Exit!";
-	private MenuBuilder menuBuilder = new MenuBuilder();
+	private MenuBuilder menuBuilder;
 	private Scanner scanner;
 	private Logger logger = Logger.getLogger(Navigator.class);
 
-	public void startMenu() {
+	public void startMenu(RequestHandler requestHandler) {
 
+		menuBuilder = new MenuBuilder(requestHandler);
 		List<IMenu> rootMenu = menuBuilder.getMenus();
 		Printer.printMenu(rootMenu);
 		scanner = new Scanner(System.in);
@@ -70,7 +72,7 @@ public class Navigator {
 				}
 			} catch (InputMismatchException e) {
 				logger.error(e.getMessage());
-				startMenu();
+				startMenu(requestHandler);
 				break;
 			}
 		}

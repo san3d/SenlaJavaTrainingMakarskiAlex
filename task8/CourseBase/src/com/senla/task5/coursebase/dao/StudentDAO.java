@@ -1,7 +1,5 @@
 package com.senla.task5.coursebase.dao;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
