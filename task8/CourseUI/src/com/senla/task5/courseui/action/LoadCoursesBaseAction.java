@@ -1,29 +1,26 @@
 package com.senla.task5.courseui.action;
 
-import java.text.ParseException;
-
-import org.apache.log4j.Logger;
-
-import com.senla.task5.coursebase.controller.interfaces.IFacade;
 import com.senla.task5.courseui.action.interfaces.IAction;
 import com.senla.task5.courseui.controller.Printer;
-import com.senla.task7.service.DependencyInjection;
+import com.senla.task5.courseui.controller.RequestSender;
+import com.senla.task8.service.DataMethod;
+import com.senla.task8.service.RequestHandler;
 
-public class LoadCoursesBaseAction implements IAction {
+public class LoadCoursesBaseAction extends RequestSender implements IAction {
 
-	private Logger logger = Logger.getLogger(LoadCoursesBaseAction.class);
 	private final static String LOADED_COURSES_ACTION = "* LOADED_COURSES_ACTION :";
-	private final static String ERROR_FILE_NOT_FOUND = "* ERROR_FILE_NOT_FOUND !";
-	private IFacade facade;
 
+	public LoadCoursesBaseAction(RequestHandler sendRequest) {
+		super(sendRequest);
+	}
+
+	
 	public void process() {
-		facade = (IFacade) DependencyInjection.getObject(IFacade.class);
 		Printer.print(LOADED_COURSES_ACTION);
-		try {
-			facade.readCoursesFromFile("CoursesBase.txt");
-		} catch (ParseException e) {
-			logger.error(e.getMessage());
-			Printer.print(ERROR_FILE_NOT_FOUND, "CoursesBase.txt");
-		}
+		DataMethod dataMethod = new DataMethod();
+		dataMethod.setMethodName("readCoursesFromFile");
+		dataMethod.setArgs(null);
+		getSendRequest().sendRequest(dataMethod);
+
 	}
 }
