@@ -79,6 +79,14 @@ public class Printer {
 		}
 		System.out.println(stringBuilder.toString());
 	}
+	
+	public static void print(String s, int i) {
+		StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.append(s);
+			stringBuilder.append(" ");
+			stringBuilder.append(i);
+		System.out.println(stringBuilder.toString());
+	}
 
 	public static void printLectionsList(List<Lection> lections, boolean b) {
 		int num = 1;

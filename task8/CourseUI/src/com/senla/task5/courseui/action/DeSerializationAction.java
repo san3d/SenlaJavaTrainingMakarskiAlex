@@ -1,30 +1,25 @@
 package com.senla.task5.courseui.action;
 
-import java.io.IOException;
-
-import org.apache.log4j.Logger;
-
-import com.senla.task5.coursebase.controller.interfaces.IFacade;
 import com.senla.task5.courseui.action.interfaces.IAction;
 import com.senla.task5.courseui.controller.Printer;
-import com.senla.task7.service.DependencyInjection;
+import com.senla.task5.courseui.controller.RequestSender;
+import com.senla.task8.service.DataMethod;
+import com.senla.task8.service.RequestHandler;
 
-public class DeSerializationAction implements IAction {
+public class DeSerializationAction extends RequestSender implements IAction {
 
 	private final static String DESERIALIZATION_ACTION = "* DeSerialization action";
-	private Logger logger = Logger.getLogger(DeSerializationAction.class);
-	private IFacade facade;
+	
+	public DeSerializationAction(RequestHandler sendRequest) {
+		super(sendRequest);
+		}
 
 	@Override
 	public void process() {
-		facade = (IFacade) DependencyInjection.getObject(IFacade.class);
-		try {
-			Printer.print(DESERIALIZATION_ACTION);
-			facade.deserialize();
-		} catch (ClassNotFoundException e) {
-			logger.error(e.getMessage());
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-		}
+		Printer.print(DESERIALIZATION_ACTION);
+		DataMethod dataMethod = new DataMethod();
+		dataMethod.setMethodName("deserialize");
+		dataMethod.setArgs(null);
+		getSendRequest().sendRequest(dataMethod);
 	}
 }

@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import com.senla.task6.prop.PropertyLoader;
 import com.senla.task7.annotations.DependencyProperty;
 
-public class DependencyInjection extends Cache {
+public class DependencyInjection {
 
 	private static Logger logger = Logger.getLogger(DependencyInjection.class);
 	private static Map<String, Object> dHolder;
